@@ -1,0 +1,74 @@
+name: Bug report
+description: Something in Sextant is wrong, slow or confusing.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Security problems do not belong here.** Anything that could expose a session, a credential or org data, or make Sextant send data anywhere but your org, goes through [SECURITY.md](../blob/main/SECURITY.md) — never a public issue.
+
+        **Never paste real org data**: no session ids, org ids, user ids, record ids, My Domain addresses, real metadata names or translation values, and no screenshots or exports from a live org. Describe the shape; the values are not needed and a session id here is a live credential on a public page.
+  - type: input
+    id: version
+    attributes:
+      label: Sextant version
+      description: Settings → About, or chrome://extensions.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: "Chrome 130 on Windows 11"
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where
+      options:
+        - Hover inspector on a Salesforce page
+        - Translate All on a Salesforce page
+        - Search
+        - Workspace
+        - Activity
+        - Compare (orgs or reads)
+        - Create Custom Labels
+        - Deploy tray / saving
+        - Settings
+        - The toolbar popup
+        - The website or the interactive demo
+        - Somewhere else
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What you did
+      description: Step by step. If it happens in the interactive demo (usesextant.dev/demo/), say so and give the steps there — that reproduction contains no real data.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      description: The exact message Sextant showed, if any. Replace any real API name or value with a made-up one of the same shape.
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before submitting
+      options:
+        - label: This is not a security problem (those go through SECURITY.md).
+          required: true
+        - label: This issue contains no real session id, org id, record id, org address, metadata name, translation value, screenshot or export from a live org.
+          required: true

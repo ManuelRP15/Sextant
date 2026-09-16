@@ -1,0 +1,1 @@
+This repository holds Sextant's public documentation and release records; it does not take code contributions, and its documents are generated from the product's own sources — a change made here would be overwritten by the next release. If something in a document is wrong, please open an issue naming the file and the sentence instead: see CONTRIBUTING.md.

@@ -1,0 +1,37 @@
+name: Feature request
+description: Something Sextant does not do yet, or stops short of.
+title: "[Request] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Say what you are trying to get done and where Sextant stops short, rather than the control you would like to see. The problem is what gets built; the control may end up somewhere else.
+
+        **Never paste real org data** — describe the shape, not the values.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you are trying to do
+      description: The task, in your words. Which Salesforce metadata is involved, in which surface of Sextant.
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What happens today
+      description: Where Sextant stops, sends you to Setup, or makes you do something by hand.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help (optional)
+      description: If you have a specific idea, describe it here — as a possibility, not a specification.
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before submitting
+      options:
+        - label: This issue contains no real session id, org id, record id, org address, metadata name, translation value, screenshot or export from a live org.
+          required: true

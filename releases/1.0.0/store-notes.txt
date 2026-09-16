@@ -1,0 +1,20 @@
+Sextant 1.0.0 — The first public release. Sextant answers one question from the Salesforce page itself — what is this text, and what does it say in every other language? — and keeps track of what changed.
+
+• Hold-to-inspect hover. Point at any label, field, button or picklist value in Lightning and see what metadata it is, its API name, and every language the org has configured. One answer or none: where a string cannot be identified with confidence, Sextant says Unknown origin instead of offering a list of guesses.
+• Edit in place for Custom Labels, custom (__c) fields and custom picklist values, with every save re-reading the org's current value first so a colleague's more recent edit is never silently overwritten. When Salesforce refuses a write, you see the org's own message.
+• Translate All annotates every translatable element on the page at once, filters to Missing, Identical or Complete, and steps through the issues with the page scrolling to each in turn.
+• Search goes from a translated string — the one quoted in the ticket — back to the component it belongs to, across the org's metadata rather than only its translatable slice.
+• Workspace captures every edit automatically, with before/after history, a package.xml export ready to deploy, and a portable export of the whole session. A component you kept is marked when it moves in the org after you captured it, naming the language that changed.
+• Activity shows what has happened in the org, built from evidence rather than inference, and notices a deployment landing — including one this browser did not start.
+• Compare environments: one component across several orgs as a table, with a consensus value and an exception set; two reads of the same org over time, always stating which two moments are compared.
+• Create Custom Labels with their translations in one grid, checked against the org as you type.
+• Settings → Privacy & security. See what Sextant keeps in your browser and how much space it uses, export it (never with your Salesforce session), delete it by scope, and read every permission Sextant asks for and why.
+• Light, Dark and System themes; English and Spanish.
+• The index says how old it is and how much of the org it covered, rather than implying freshness it cannot vouch for. Large orgs are read incrementally and the read resumes across browser restarts.
+• Saving straight to a production org always asks first. Don't ask me again does not apply to a production org, or to an org Sextant has not identified yet.
+• Automatic interface language. A new install follows the browser's language when Sextant has it; choosing a language in Settings keeps that choice.
+• Absence is distinguished from failure throughout: "there is nothing here" and "we could not find out" are different sentences, never the same empty state.
+• Activity no longer attributes a colleague's change to you because you had pinned the component.
+• The Workspace's search box matches the label you see on the row, not only its API name.
+• API names and object names no longer clip mid-word in rows that have room for them.
+• The Workspace's row summaries follow the interface language.

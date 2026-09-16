@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem
+    url: https://usesextant.dev/security/
+    about: Never in a public issue. The security policy says how to report privately and what never to include.
+  - name: Try it in the interactive demo
+    url: https://usesextant.dev/demo/
+    about: The real product against a fictional org — a reproduction there contains no real data.
