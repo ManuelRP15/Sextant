@@ -157,6 +157,11 @@ Stated so nobody has to discover it.
 - **A compromised computer or browser profile.** Sextant's local data is not encrypted by Sextant
   beyond what your operating system and browser provide. Anyone who can use your browser profile can
   read it, as they can read your Salesforce session.
+  Sextant itself shows what it has stored for an org only to the Salesforce user it was read for — a
+  second user of the same browser profile is shown nothing of the first one's, and it is kept for them
+  ([`DATA_HANDLING.md`](DATA_HANDLING.md), *Who is shown what is stored*). That is a rule about what
+  Sextant displays. It is not encryption, and it does not protect the files on disk from somebody who
+  has your operating-system account.
 - **Other extensions.** An extension with access to Salesforce pages can read what those pages show,
   including what Sextant displays in them.
 - **Salesforce's own behaviour**, and anything your Salesforce user is permitted to do. Sextant acts

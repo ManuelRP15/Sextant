@@ -206,6 +206,94 @@ Evidence key: **E** enforced by the browser or platform · **T** automated test 
   visible and deletable per org and in full.
 - **Residual.** Accepted.
 
+### T14b — A second Salesforce principal in the same browser profile reads the first one's data
+
+Distinct from T14, and **not** accepted the same way. T14 is about someone with the machine; this is
+about two legitimate Salesforce identities that the browser, and therefore Sextant, sees as one context:
+two users sharing a profile, an admin who signs out and back in as a restricted test user, or a private
+window signed in to the same org as somebody else — and about ONE identity whose permissions shrink.
+Sextant reads with the current session and stores what comes back, so without a principal in the picture
+the store is shared between them. The rule it is held to: **Sextant never expands the visibility
+Salesforce grants to the current context** (`DECISIONS.md #338`).
+
+An earlier version of this section recorded the stored payload as OPEN. It was worse than it said: the
+"current principal" every comparison used was a value restored from disk — whoever signed in LAST — so an
+administrator's index was adopted for whoever was actually there on every worker start, and every store
+written before attribution existed matched everybody. That is closed as follows.
+
+- **Mitigations.**
+  - **Who is signed in is proven, never remembered.** Before anything stored for an org is served, used
+    or added to, the worker asks Salesforce whose session the org's cookie is (`getUserInfo()`, which
+    needs no permission). The proof lives in the worker's memory only, is void the moment that cookie
+    changes (`chrome.cookies.onChanged`, plus a re-read of the cookie at every entry point, because a
+    worker that was asleep never sees the event) and is earned again at every worker start. The session is
+    still stored nowhere (`src/background/reader-proof.ts`; `reader-proof.test.ts`) — **T**.
+  - **An org's stored data belongs to one proven principal at a time.** When a different principal is
+    proven for an org, everything Salesforce-derived that is stored for it — index, component list,
+    capabilities, read status, Activity history and baselines, snapshots, deployments and their
+    manifests, the Workspace, recents, marked actors, detection traces — is set aside under the previous
+    principal's id *before anything is served or read*, and the newcomer's own (or nothing) takes its
+    place. Nobody inherits in either direction. The move is crash-safe: an intent is written first, the
+    org answers nobody while one exists, and every step is idempotent, tested at each interruption point
+    (`src/shared/reader-scope.ts`, `src/background/reader-vault.ts`; `reader-vault.test.ts`) — **T**.
+  - **One gate, closed by default.** Data is served only while the org's owner is the principal proven
+    now and nothing is being moved: signed out, not confirmed, somebody else's, mid-move and
+    unattributable are all closed, and a closed gate needs no network and no re-read to be closed — the
+    safe state exists before any new read completes. Every message the worker handles declares whose org
+    it is about, and the reader is established before its handler runs (`src/shared/reader-policy.ts`);
+    every operation that talks to Salesforce takes its session through the same step; a read that was in
+    flight when the principal changed is discarded rather than filed under whoever is there now; the
+    in-memory index names its principal and is dropped on the change. The fourteen scenarios — admin then
+    restricted user, and back; no cookie event; worker restart; interrupted move; several orgs; Search
+    and Quick Search; Activity; an upgrade — run against the real worker
+    (`src/background/reader-isolation.test.ts`, `reader-isolation-surfaces.test.ts`) — **T**.
+  - **The surfaces that read storage themselves ask first.** Sextant's own page, the popup and the content
+    script read `chrome.storage.local` directly, which the worker cannot filter; each asks the gate
+    before reading and lets go of what it holds when a sign-in changes (`src/shared/reader-gate.ts`).
+    Sextant's own page, which also writes the Workspace, asks again before each write. An export holds only what
+    the person exporting could be shown — **T**.
+  - **A current refusal overrides a remembered answer.** When Salesforce refuses the same user an object
+    or the Custom Labels it used to return, what the earlier read stored for that part is removed from
+    the index and the index stops being reported as complete (`src/shared/index-merge.ts`
+    `dropRefusedEntries`) — **T**.
+  - **Data from before principals were recorded is trusted for nobody.** It is never assigned to whoever
+    opens Sextant after an upgrade: what Salesforce can provide again is removed and read again, the rest
+    is kept where no surface reads, visible and deletable in Settings — **T**.
+  - **It cannot quietly come back.** A store that holds what Salesforce said must be declared a reader's
+    and be described to the mover, every message type must declare its org, every direct reader outside
+    the worker must go through the gate, and the functions that answered "who is signed in" from disk
+    must stay deleted — each fails a test, with a mutation proof on record
+    (`src/security/reader-isolation.test.ts`) — **T**.
+  - `incognito: "split"` in the manifest — the private window gets its own worker, its own cookie store
+    and its own `storage.local`, so it can neither read the normal profile's stored org data nor have its
+    own persisted. Chrome's MV3 default, `spanning`, shares all three; naming the mode is what prevents
+    it (`src/security/session-isolation.test.ts`, which also carries the per-context session matrix) — **T**.
+  - Capability records name the `principalId` that earned them, and a record belonging to another
+    principal reads as `missing` rather than `expired` (`src/shared/org-capabilities.ts`) — **T**.
+  - A refused read is classified rather than swallowed, so *no access* is never rendered as *this org has
+    none of those* (`src/shared/read-refusal.ts`) — **T**.
+- **Residual.**
+  - **Verified against a double, not yet against two real users.** Every guarantee above is exercised
+    against the real worker with a Salesforce double that knows whose each session is. The same-org,
+    two-principal run in a real browser is a manual step recorded in `docs/CURRENT_STATE.md` — **P**,
+    open until it has been run.
+  - **A permission lost on something Sextant does not ask about again.** The removal above is driven by
+    Salesforce REFUSING a read. A field hidden from a user by field-level security is simply absent from
+    the answer, with no refusal, and a page read is partial by design — so an entry for a field the user
+    can no longer see stays in the index until the next whole-org read replaces it — which the READER
+    starts: Sextant starts one by itself only for an org it has never read whole, so nothing bounds this
+    in time. It was read by this same user, under permissions they held then;
+    it is not another person's data. Closing it needs per-object authoritative reads and is tracked as
+    `ROADMAP.md` `PHASE 52` — **O**.
+  - **A page that is already on screen.** A Sextant tab showing an org is cleared when the sign-in
+    changes, by an event; between the change and the event the pixels already painted are still there,
+    exactly as Salesforce's own open tabs are. Promptness, not a guarantee — **E**/**T** for the event,
+    nothing for the pixels.
+  - **The registry.** The list of orgs, their addresses and the last user known for each are not org
+    metadata and stay readable to the browser profile; the user shown is corrected the moment somebody
+    else is proven. T14 applies to everything at rest, the set-aside data included: it is not encrypted,
+    and whoever holds the OS account can read the profile's files.
+
 ### T15 — Diagnostics capture more than intended
 
 - **Mitigations.** Off by default; bounded; credential shapes redacted; deletable; the DOM sink that exposed

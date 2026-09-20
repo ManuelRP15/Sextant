@@ -167,6 +167,33 @@ of it; Settings → Privacy & security shows its size and deletes it selectively
 
 Sextant does not encrypt this data beyond what the operating system and the browser profile provide.
 
+### Who is shown what is stored
+
+What Sextant reads from Salesforce is what ONE Salesforce user's permissions allowed, so it belongs to that user,
+not to the browser profile. Before Sextant shows or uses anything it has stored for an org, it asks Salesforce who
+is signed in to that org now (`getUserInfo()`, which needs no permission), and what is stored is shown only to the
+user it was read for:
+
+- **A different Salesforce user signs in to the same org in the same browser profile.** Everything Sextant had
+  stored for that org is set aside under the previous user's id *before anything is shown or read*, and the new
+  user starts from what is theirs, or from nothing. Nobody inherits in either direction: a restricted user never
+  sees what an administrator's session read, and an administrator never inherits a restricted user's narrower view.
+  What was set aside is handed back, untouched, when its user signs in again.
+- **Nobody is signed in to the org, or Salesforce cannot confirm who is.** Nothing stored for that org is shown.
+  It stays on the computer, as the paragraph above says; it is simply not displayed until somebody it belongs to
+  is signed in.
+- **The same user loses a permission.** When Salesforce then REFUSES a read — an object, or the Custom Labels —
+  Sextant removes what it had stored for that part instead of continuing to show it, and stops describing its
+  copy of the org as complete. A field that is merely hidden from the user is not refused: it is simply missing
+  from Salesforce's answer. What an earlier read stored for such a field — read by the same user, while they
+  could see it — stays until the org is read whole again, which you start from Sextant.
+- **Data stored by a version that did not record who read it.** It is shown to nobody. What Salesforce can provide
+  again is removed and read again for whoever is signed in; the rest waits, unseen, until it is deleted.
+
+The session itself is never stored: who is signed in is held in the extension's memory only, and asked again
+every time the extension's background process starts. The tables below say, per key, who may be shown it.
+*Your preferences* and *the list of orgs* carry no org metadata and belong to the browser profile.
+
 ### Settings and preferences
 
 Your Sextant preferences: languages you work in, theme, display size, shortcuts, Activity view options, and the actors you marked as automated users.
@@ -175,12 +202,13 @@ Your Sextant preferences: languages you work in, theme, display size, shortcuts,
 - **How long:** Until you change or reset them.
 - **If deleted:** It is gone for good; Salesforce does not keep a copy Sextant could read back.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `settings` | Preferences object (`Settings` in `types.ts`). | Set by you | No | No | Yes |
-| `auditViewPrefs` | Activity view options: sort, columns, density. | Set by you | No | No | Yes |
-| `auditSystemActorOverrides` | Actors (Salesforce user names) you marked as automated, per org. | Set by you | Yes | No | Yes |
-| `privacyDeletionNotice` | A one-time note that local data was just deleted, removed on the next start so Settings can say what happened. | Sextant's own bookkeeping | No | No | **Never** |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `settings` | Preferences object (`Settings` in `types.ts`). | Set by you | No | No | Whoever uses this browser profile | Yes |
+| `auditViewPrefs` | Activity view options: sort, columns, density. | Set by you | No | No | Whoever uses this browser profile | Yes |
+| `auditSystemActorOverrides` | Actors (Salesforce user names) you marked as automated, per org. | Set by you | Yes | No | Only the Salesforce user it was read for | Yes |
+| `privacyDeletionNotice` | A one-time note that local data was just deleted, removed on the next start so Settings can say what happened. | Sextant's own bookkeeping | No | No | Whoever uses this browser profile | **Never** |
+| `quickSearchRecents` | Per org: the last components you opened from Quick Search or inspected in Sextant (their names and Setup addresses), newest first, at most 20 per org. Never what you typed. | Set by you | Yes | Yes | Only the Salesforce user it was read for | Yes |
 
 ### Orgs you have used
 
@@ -190,12 +218,17 @@ For each Salesforce org Sextant has read: its org id, name, environment and My D
 - **How long:** Until you delete it. Updated each time you open that org.
 - **If deleted:** Sextant can read it again from Salesforce.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `orgDirectory` | Org id → identity (org name, environment, host, your user id, username and name), first/last seen, last indexed. | Read from Salesforce | Yes | Yes | Yes |
-| `activeOrg` | The org Sextant is pointed at: org id, Lightning origin, since when. | Set by you | No | No | Yes |
-| `orgIdentities` | API host → identity, for the content script's provenance footer. | Read from Salesforce | Yes | Yes | Yes |
-| `lastOrgOrigin` | The Lightning origin of the last Salesforce page read. | Sextant's own bookkeeping | No | No | Yes |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `readerOwners` | Org id → the Salesforce user id whose session read what is stored for that org, and since when. | Read from Salesforce | Yes | No | Whoever uses this browser profile | Yes |
+| `readerSwitch` | While one user's data is being set aside for another: the org id and the two user ids. Removed when the move is finished. | Sextant's own bookkeeping | Yes | No | Whoever uses this browser profile | Yes |
+| `readerSignal` | When a Salesforce sign-in last changed in this browser — a time, so open Sextant pages check again who is signed in. | Sextant's own bookkeeping | No | No | Whoever uses this browser profile | Yes |
+| `orgDirectory` | Org id → identity (org name, environment, host, your user id, username and name), first/last seen, last indexed. | Read from Salesforce | Yes | Yes | Whoever uses this browser profile | Yes |
+| `activeOrg` | The org Sextant is pointed at: org id, Lightning origin, since when. | Set by you | No | No | Whoever uses this browser profile | Yes |
+| `orgIdentities` | API host → identity, for the content script's provenance footer. | Read from Salesforce | Yes | Yes | Whoever uses this browser profile | Yes |
+| `lastOrgOrigin` | The Lightning origin of the last Salesforce page read. | Sextant's own bookkeeping | No | No | Whoever uses this browser profile | Yes |
+| `orgNotes` | Per org: the free-text note you wrote about it, and when. | Set by you | Yes | No | Whoever uses this browser profile | Yes |
+| `orgProfiles` | Per org: the name you gave it, the group you put it in, and the accent you chose. | Set by you | Yes | No | Whoever uses this browser profile | Yes |
 
 ### Org metadata cache
 
@@ -205,33 +238,33 @@ What Sextant has read from each org so it can answer without asking again: compo
 - **How long:** Replaced on each read and kept until deleted. Sextant reads it again when needed.
 - **If deleted:** Sextant can read it again from Salesforce.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `orgIndex::…` | The org's translation index: every translatable component's API name, type, id and values per language. | Read from Salesforce | No | Yes | Yes |
-| `metadataAudit::…` | The org's component list (`listMetadata` rows) with last-modified date and last-modified-by name. | Read from Salesforce | Yes | Yes | Yes |
-| `orgCapabilities::…` | Which Tooling API objects the org and your permissions expose. | Read from Salesforce | No | No | Yes |
-| `indexSweepSlice::…` | One wave of an in-progress full-org read. | Read from Salesforce | No | Yes | Yes |
-| `indexSweep::…` | Checkpoint of an in-progress full-org read. | Sextant's own bookkeeping | No | No | Yes |
-| `indexStatus` | Per API host: read state, counts and times. | Sextant's own bookkeeping | No | No | Yes |
-| `pageRoundLedger` | Per host: the last page read's org, languages and objects, to avoid re-reading within minutes. | Sextant's own bookkeeping | No | Yes | Yes |
-| `autoIndexAttempts` | Per org: when Sextant last started a full read by itself. | Sextant's own bookkeeping | No | No | Yes |
-| `clockSkew` | Per org: measured difference between this computer's clock and Salesforce's. | Read from Salesforce | No | No | Yes |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `orgIndex::…` | The org's translation index: every translatable component's API name, type, id and values per language. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
+| `metadataAudit::…` | The org's component list (`listMetadata` rows) with last-modified date and last-modified-by name. | Read from Salesforce | Yes | Yes | Only the Salesforce user it was read for | Yes |
+| `orgCapabilities::…` | Which Tooling API objects the org and your permissions expose. | Read from Salesforce | No | No | Only the Salesforce user it was read for | Yes |
+| `indexSweepSlice::…` | One wave of an in-progress full-org read. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
+| `indexSweep::…` | Checkpoint of an in-progress full-org read. | Sextant's own bookkeeping | No | No | Only the Salesforce user it was read for | Yes |
+| `indexStatus` | Per API host: read state, counts and times. | Sextant's own bookkeeping | No | No | Only the Salesforce user it was read for | Yes |
+| `pageRoundLedger` | Per host: the last page read's org, languages and objects, to avoid re-reading within minutes. | Sextant's own bookkeeping | No | Yes | Only the Salesforce user it was read for | Yes |
+| `autoIndexAttempts` | Per org: when Sextant last started a full read by itself. | Sextant's own bookkeeping | No | No | Only the Salesforce user it was read for | Yes |
+| `clockSkew` | Per org: measured difference between this computer's clock and Salesforce's. | Read from Salesforce | No | No | Whoever uses this browser profile | Yes |
 
 ### Activity history and change baselines
 
 What Sextant observed changing in each org over time — which component, when, and who Salesforce reports as its last modifier — your own translation edits, and the baselines used to notice the next change.
 
-- **Why:** To show what changed and what was yours. Salesforce does not keep this history, so Sextant does.
-- **How long:** Up to one year and 6,000 events per org; older events are removed automatically. Baselines are replaced as the org is read.
+- **Why:** To show what changed and what was yours. Salesforce does not provide an equivalent value-change history that Sextant can reconstruct later, so Sextant keeps what it observes.
+- **How long:** The last 30 days of what Sextant has observed in each org, and at most 3,000 events or 2 MB of them; older events are removed automatically. Turning on extended local history in Settings keeps about 180 days instead, still bounded. Baselines are replaced as the org is read.
 - **If deleted:** It is gone for good; Salesforce does not keep a copy Sextant could read back.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `activityEvents` | Per org: observed changes (component, time, reported modifier) and your own translation edits. | Salesforce and you | Yes | Yes | Yes |
-| `activityEventsMigratedAt` | When the pre-event-log history was migrated. | Sextant's own bookkeeping | No | No | Yes |
-| `renameTokenEventPurgeAt` | When a one-time correction of earlier events ran. | Sextant's own bookkeeping | No | No | Yes |
-| `auditObservations` | Per org: the component baseline change detection compares against. | Read from Salesforce | Yes | Yes | Yes |
-| `translationValueBaseline` | Per org: the translation values value-change detection compares against. | Read from Salesforce | No | Yes | Yes |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `activityEvents` | Per org: observed changes (component, time, reported modifier) and your own translation edits. | Salesforce and you | Yes | Yes | Only the Salesforce user it was read for | Yes |
+| `activityEventsMigratedAt` | When the pre-event-log history was migrated. | Sextant's own bookkeeping | No | No | Whoever uses this browser profile | Yes |
+| `renameTokenEventPurgeAt` | When a one-time correction of earlier events ran. | Sextant's own bookkeeping | No | No | Whoever uses this browser profile | Yes |
+| `auditObservations` | Per org: the component baseline change detection compares against. | Read from Salesforce | Yes | Yes | Only the Salesforce user it was read for | Yes |
+| `translationValueBaseline` | Per org: the translation values value-change detection compares against. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
 
 ### Translation snapshots
 
@@ -241,9 +274,9 @@ Complete reads of an org's translations, kept so two moments or two orgs can be 
 - **How long:** The most recent snapshots per org; older ones are replaced.
 - **If deleted:** It is gone for good; Salesforce does not keep a copy Sextant could read back.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `translationSnapshots::…` | The org's complete translation reads, for comparisons. | Read from Salesforce | No | Yes | Yes |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `translationSnapshots::…` | The org's complete translation reads, for comparisons. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
 
 ### Deployments
 
@@ -253,11 +286,11 @@ Translation changes you queued or sent — including the values being written �
 - **How long:** Kept until deleted. A deployment still in progress cannot be deleted until it finishes.
 - **If deleted:** It is gone for good; Salesforce does not keep a copy Sextant could read back.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `translationDeploys` | Per org: deploy batches — edits with their values, status, Salesforce's answer. | Salesforce and you | No | Yes | Yes |
-| `deployWatch` | Per org: deployments noticed and offers dismissed. | Read from Salesforce | No | No | Yes |
-| `deployManifests::…` | The component lists of deployments noticed in the org. | Read from Salesforce | No | Yes | Yes |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `translationDeploys` | Per org: deploy batches — edits with their values, status, Salesforce's answer. | Salesforce and you | No | Yes | Only the Salesforce user it was read for | Yes |
+| `deployWatch` | Per org: deployments noticed and offers dismissed. | Read from Salesforce | No | No | Only the Salesforce user it was read for | Yes |
+| `deployManifests::…` | The component lists of deployments noticed in the org. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
 
 ### Workspace
 
@@ -267,12 +300,12 @@ Components you kept, your edits with their before and after values, review marks
 - **How long:** Until you remove items or delete the Workspace.
 - **If deleted:** It is gone for good; Salesforce does not keep a copy Sextant could read back.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `workspaceItems` | Pinned components and captured edits with before/after values, per org. | Set by you | No | Yes | Yes |
-| `workspaceReviewed` | Review marks, per org. | Set by you | No | No | Yes |
-| `workspaceComponents` | Components kept in the Workspace, per org. | Set by you | No | Yes | Yes |
-| `workspaceGroups` | Groups you named, per org. | Set by you | Yes | No | Yes |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `workspaceItems` | Pinned components and captured edits with before/after values, per org. | Set by you | No | Yes | Only the Salesforce user it was read for | Yes |
+| `workspaceReviewed` | Review marks, per org. | Set by you | No | No | Only the Salesforce user it was read for | Yes |
+| `workspaceComponents` | Components kept in the Workspace, per org. | Set by you | No | Yes | Only the Salesforce user it was read for | Yes |
+| `workspaceGroups` | Groups you named, per org. | Set by you | Yes | No | Only the Salesforce user it was read for | Yes |
 
 ### Diagnostics
 
@@ -282,12 +315,12 @@ Developer diagnostics, only when turned on: detection traces (element text, page
 - **How long:** Bounded: the newest traces and timing marks replace the oldest. Until cleared.
 - **If deleted:** It is gone for good; Salesforce does not keep a copy Sextant could read back.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `detectionDiagnostics` | Detection traces you captured: element text, page URL, identification steps. | Salesforce and you | No | Yes | Yes |
-| `__stiDiag` | Timing marks recorded after `stiDiagReset()`; details redacted of credentials. | Sextant's own bookkeeping | No | Yes | Yes |
-| `__stiDiagEnabled` | Whether timing marks are being recorded. | Set by you | No | No | Yes |
-| `__stiDiagBytes` | Whether timing marks include payload sizes. | Set by you | No | No | Yes |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `detectionDiagnostics` | Detection traces you captured: element text, page URL, identification steps. | Salesforce and you | No | Yes | Only the Salesforce user it was read for | Yes |
+| `__stiDiag` | Timing marks recorded after `stiDiagReset()`; details redacted of credentials. They name orgs, objects and counts, so they are removed whenever a different Salesforce user takes over an org. | Sextant's own bookkeeping | No | Yes | Only the Salesforce user it was read for | Yes |
+| `__stiDiagEnabled` | Whether timing marks are being recorded. | Set by you | No | No | Whoever uses this browser profile | Yes |
+| `__stiDiagBytes` | Whether timing marks include payload sizes. | Set by you | No | No | Whoever uses this browser profile | Yes |
 
 ### AI development data
 
@@ -297,16 +330,28 @@ Present only in development builds that include the unreleased AI kernel: a deri
 - **How long:** Deleted automatically by builds without the AI kernel.
 - **If deleted:** Sextant can read it again from Salesforce.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `aiOrgVocabulary` | A derived list of one org's object and label names. | Read from Salesforce | No | Yes | Yes |
-| `aiIndexEpoch` | A counter keying the AI cache. | Sextant's own bookkeeping | No | No | Yes |
-| `aiPackCache` | Cached context packs. | Read from Salesforce | No | Yes | Yes |
-| `aiVerdicts.…` | Cached AI verdicts. | Sextant's own bookkeeping | No | Yes | Yes |
-| `aiBudget` | Spend records. | Sextant's own bookkeeping | No | No | Yes |
-| `aiTaskRuns` | Task run records. | Sextant's own bookkeeping | No | Yes | Yes |
-| `aiProviderKey` | A provider API key a developer configured. A credential: never exported. | Set by you | No | No | **Never** |
-| `aiProviderEndpoint` | A provider endpoint a developer configured. | Set by you | No | No | **Never** |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `aiOrgVocabulary` | A derived list of one org's object and label names. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
+| `aiIndexEpoch` | A counter keying the AI cache. | Sextant's own bookkeeping | No | No | Whoever uses this browser profile | Yes |
+| `aiPackCache` | Cached context packs. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
+| `aiVerdicts.…` | Cached AI verdicts. | Sextant's own bookkeeping | No | Yes | Only the Salesforce user it was read for | Yes |
+| `aiBudget` | Spend records. | Sextant's own bookkeeping | No | No | Whoever uses this browser profile | Yes |
+| `aiTaskRuns` | Task run records. | Sextant's own bookkeeping | No | Yes | Only the Salesforce user it was read for | Yes |
+| `aiProviderKey` | A provider API key a developer configured. A credential: never exported. | Set by you | No | No | Whoever uses this browser profile | **Never** |
+| `aiProviderEndpoint` | A provider endpoint a developer configured. | Set by you | No | No | Whoever uses this browser profile | **Never** |
+
+### Data kept for other Salesforce users of this browser
+
+What Sextant read for a different Salesforce user who signed in to the same org in this browser profile: their Activity history, snapshots, deployments and Workspace, and their most recent metadata cache. It is set aside under their user id and is never shown to anyone else.
+
+- **Why:** What Sextant reads is what one Salesforce user's permissions allow, so it is never shown to another user — and signing in as somebody else must not destroy a colleague's history, which Salesforce cannot give back. It is handed back to them, untouched, when they sign in again.
+- **How long:** Until that user signs in again, or until it is deleted here. The metadata cache is kept for one previous user per org; a third user replaces it. Data stored before Sextant recorded who read it is never shown to anyone: what Salesforce can provide again is removed, the rest waits here until deleted.
+- **If deleted:** It is gone for good; Salesforce does not keep a copy Sextant could read back.
+
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `readerVault::…` | Another Salesforce user's stored data for an org, set aside under their user id: the same kinds of value as the live stores, never read by any surface. | Salesforce and you | Yes | Yes | Only the Salesforce user it was read for | **Never** |
 
 ### Data from older versions
 
@@ -316,12 +361,12 @@ Keys written by earlier versions of Sextant before their data moved to its curre
 - **How long:** Until migrated or deleted.
 - **If deleted:** Sextant can read it again from Salesforce.
 
-| Key | Holds | Source | Names of people | Org content | In an export |
-|---|---|---|---|---|---|
-| `cachedEntries` | The pre-`#206` single translation index. | Read from Salesforce | No | Yes | Yes |
-| `orgIdentity` | The pre-`#206` single org identity. | Read from Salesforce | Yes | Yes | Yes |
-| `translationHealth` | The removed Translation Health feature's data. | Read from Salesforce | No | Yes | Yes |
-| `workspaceEdits` | The pre-v2 Workspace edits list. | Set by you | No | Yes | Yes |
+| Key | Holds | Source | Names of people | Org content | Shown to | In an export |
+|---|---|---|---|---|---|---|
+| `cachedEntries` | The pre-`#206` single translation index. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
+| `orgIdentity` | The pre-`#206` single org identity. | Read from Salesforce | Yes | Yes | Whoever uses this browser profile | Yes |
+| `translationHealth` | The removed Translation Health feature's data. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
+| `workspaceEdits` | The pre-v2 Workspace edits list. | Set by you | No | Yes | Only the Salesforce user it was read for | Yes |
 
 ## 4. Exporting your data
 
@@ -330,14 +375,19 @@ version 1). The file carries this notice:
 
 > A copy of the data Sextant keeps in this browser. It never contains your Salesforce session or any credential. It may contain org metadata, translation text and names of people in your orgs: share it only as you would share that.
 
-Never exported: `privacyDeletionNotice`, `aiProviderKey`, `aiProviderEndpoint`, and any key this version of Sextant does not recognise. The file lists
+Never exported: `readerVault::…`, `privacyDeletionNotice`, `aiProviderKey`, `aiProviderEndpoint`, and any key this version of Sextant does not recognise. The file lists
 by name what it left out. Credential-shaped text found inside an exported value (a session id, a bearer
 token, an API key) is replaced with `[redacted]`.
+
+The file holds what you could be shown at that moment, and nothing else: for an org you are not signed in to,
+or whose stored data was read by another Salesforce user, that org's data is left out of every value, and what
+is set aside for other users is never exported.
 
 ## 5. Deleting your data
 
 Settings → Privacy & security. Every deletion asks first, removes only Sextant's data in this browser, and
-never changes anything in Salesforce.
+never changes anything in Salesforce. A deletion is about this computer, not about one user: each choice below
+also removes the matching data that is set aside for other Salesforce users of this browser profile.
 
 - **Clear cached org data.** Sextant reads your orgs again the next time you use them. A large org can take a few minutes. Removes: Org metadata cache; AI development data; Data from older versions.
 - **Delete history.** Activity history, change baselines, snapshots and deployment records. Salesforce cannot give this history back — export Activity first to keep a copy. Removes: Activity history and change baselines; Translation snapshots; Deployments.
