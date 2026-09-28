@@ -4,7 +4,7 @@
 
 <p align="center">See what your Salesforce org actually says.<br>A Chrome extension for Salesforce admins and developers.</p>
 
-Hover any text in Salesforce Lightning and Sextant tells you what it is — the field, picklist value, Custom Label or object behind it — with its API name and every translation, editable in place. Then it keeps track: what changed, who changed it when that is known, and whether it reached every org.
+**Sextant — Salesforce Metadata & Translations** identifies the Salesforce metadata behind the text on a Lightning page and shows its translations in every language the org has. Hover any text in Salesforce Lightning and Sextant tells you what it is — the field, picklist value, Custom Label or object behind it — with its API name and every translation, editable in place. Then it keeps track: what changed, who changed it when that is known, and whether it reached every org.
 
 <a href="https://usesextant.dev/demo/?scenario=hover"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sextant-hover-dark.png"><img src="assets/sextant-hover-light.png" width="1100" alt="A Salesforce record page. Sextant's tooltip names the text under the pointer — the Custom Label Verification_Step_Upload, &quot;Upload identity document&quot; — shows it in English, Spanish and French, and has its missing Dutch translation typed in place, ready to save."></picture></a>
 
@@ -16,12 +16,12 @@ There is no server, no account and no telemetry. Sextant works with the Salesfor
 
 **Install:** not on the Chrome Web Store yet. When it is, the link will appear here, on the website and in the release notes — from one setting, so they cannot disagree. Nothing in this repository is meant to be installed by hand.
 
-**Website:** https://usesextant.dev · [Product](https://usesextant.dev/features/) · [Trust Center](https://usesextant.dev/trust/) · [Changelog](https://usesextant.dev/changelog/)
+**Website:** https://usesextant.dev · [Product](https://usesextant.dev/features/) · [Guides](https://usesextant.dev/guides/) · [Trust Center](https://usesextant.dev/trust/) · [Changelog](https://usesextant.dev/changelog/)
 
 ## What it does
 
 - **Inspect** — hold a key and hover any label, field, button or picklist value: what it is, its API name, every language your org has configured, and whether a translation is missing or identical to the source. One answer, or an honest *Unknown origin* — never a ranked list of guesses.
-- **Edit where you found it** — Custom Labels, custom (`__c`) fields and custom picklist values, with every save re-reading the org's current value first. Standard fields and standard picklist values are deliberately read-only.
+- **Edit where you found it** — Custom Labels, custom (`__c`) fields and custom picklist values, plus record types, custom buttons and links, quick actions, layout sections, custom tabs and apps, with every save re-reading the org's current value first. Standard fields and standard picklist values are deliberately read-only.
 - **Translate All** — annotate every translatable element on the page at once, filter to what is missing, and step through the issues.
 - **Search** — from a translated string back to the component it belongs to, across the org's metadata.
 - **Workspace** — every edit captured automatically, with before/after history and a `package.xml` ready to deploy.
@@ -53,6 +53,7 @@ The source code is not published here, and this repository does not pretend othe
 |---|---|
 | understand what Sextant does | [the product page](https://usesextant.dev/features/) |
 | try it | [the interactive demo](https://usesextant.dev/demo/) |
+| learn how Salesforce translation works, with or without Sextant | [the guides](https://usesextant.dev/guides/) |
 | read what it stores, sends and asks for | [PRIVACY.md](PRIVACY.md) · [DATA_HANDLING.md](DATA_HANDLING.md) · [PERMISSIONS.md](PERMISSIONS.md) |
 | see how a release is built and verified | [RELEASE_SECURITY.md](RELEASE_SECURITY.md) · [releases/](releases/) |
 | see what the design defends against | [THREAT_MODEL.md](THREAT_MODEL.md) |
@@ -76,4 +77,4 @@ Support: support@usesextant.dev. Bug reports and feature requests are welcome as
 
 ---
 
-Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc. Salesforce and Lightning are trademarks of Salesforce, Inc., used only to describe what Sextant works with. Version 1.0.0 (not yet published).
+Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc. Salesforce and Lightning are trademarks of Salesforce, Inc., used only to describe what Sextant works with. Made and published by Manuel Roldán Pérez. Version 1.0.0 (not on the Chrome Web Store yet).
