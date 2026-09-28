@@ -1,6 +1,6 @@
 # Sextant 1.0.0
 
-Released: unreleased
+Released: 2026-09-28
 Headline: The first public release. Sextant answers one question from the Salesforce page itself — what is this text, and what does it say in every other language? — and keeps track of what changed.
 
 <!--
@@ -41,7 +41,7 @@ contents are folded in here rather than listed as a version of their own.
 
 ## Privacy
 - **No backend, no account, no telemetry, no analytics, no third-party requests.** The only host Sextant contacts is your own Salesforce org, using your own session, making the requests Setup already makes. Everything Sextant keeps stays in this browser profile.
-- The privacy policy (version 5) covers the extension, the website and the interactive demo, in English and Spanish, and a generated `DATA_HANDLING.md` lists every item Sextant stores.
+- The privacy policy (version 6) covers the extension, the website and the interactive demo, in English and Spanish, and a generated `DATA_HANDLING.md` lists every item Sextant stores.
 
 ## Security
 - **The browser enforces where Sextant can send requests.** A content security policy limits Sextant's pages and background process to Salesforce, and forbids scripts from anywhere else and string evaluation. It is verified in a real browser on every release build.

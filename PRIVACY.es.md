@@ -1,21 +1,17 @@
 # Política de privacidad — Sextant
 
-**Versión 5 · Última actualización: 2026-09-28** · [English version](PRIVACY.md)
+**Versión 6 · Última actualización: 2026-09-28** · [English version](PRIVACY.md)
 
 > **Traducción.** Esta es una traducción de la política en inglés, que es la que prevalece en caso de
 > discrepancia. Ambas se actualizan a la vez.
->
-> **⚠️ TODAVÍA NO SE PUEDE PUBLICAR** — quedan los mismos tres puntos abiertos que en la versión en
-> inglés (revisión legal, quién publica Sextant y el canal de contacto), y además esta traducción
-> necesita la misma revisión legal. `npm run publication:check` falla mientras sigan abiertos.
 
 ---
 
 ## 0. A quién se refiere esta política
 
 Sextant es una extensión para Chrome y Edge que muestra qué metadato de Salesforce es un texto, con sus
-traducciones, y permite editar esas traducciones. La publica `[ EDITOR — DECISIÓN PENDIENTE ]`
-("el desarrollador", "nosotros").
+traducciones, y permite editar esas traducciones. La publica Manuel Roldán Pérez,
+desarrollador independiente ("el desarrollador", "nosotros").
 
 Sextant es un producto independiente. No lo fabrica, respalda ni mantiene Salesforce, Inc. Salesforce y
 Lightning son marcas de Salesforce, Inc.
@@ -151,13 +147,11 @@ como tu dirección de correo y tu mensaje, y lo usamos solo para responderte y p
 que nos comunicas. No envíes nunca un ID de sesión de Salesforce, una contraseña ni datos reales de una
 org (consulta `SECURITY.md` §2).
 
-> **⚠️ REQUIERE REVISIÓN LEGAL** — cuánto tiempo se conserva la correspondencia, y con qué base legal,
-> depende del editor y del canal que se elijan (§0, §14).
+Conservamos esa correspondencia solo el tiempo necesario para responderte y resolver lo que nos
+comunicas, y la borramos en un plazo máximo de 12 meses. La base legal es nuestro interés legítimo en
+responderte y en corregir Sextant (artículo 6.1.f del RGPD de la UE y del Reino Unido).
 
 ## 9. Tus opciones y derechos
-
-> **⚠️ REQUIERE REVISIÓN LEGAL** — esta sección describe derechos previstos en la normativa de protección
-> de datos (como el RGPD de la UE y del Reino Unido) y debe revisarse antes de publicarse.
 
 - **Ver, exportar y borrar** lo que guarda Sextant: Ajustes → Privacidad y seguridad. Borrar ahí elimina
   los datos de Sextant de tu navegador y nunca cambia nada en Salesforce.
@@ -200,9 +194,8 @@ El sitio web de Sextant (`https://usesextant.dev`) y la demo interactiva que alo
 - Ni el sitio web ni la demo se conectan a ninguna org de Salesforce, y nada de lo que haces en la demo llega al
   desarrollador.
 
-> **⚠️ REQUIERE REVISIÓN LEGAL** — las condiciones de tratamiento de datos y la retención de registros de acceso
-> del proveedor de alojamiento (`docs/HOSTING.md` §8) son del proveedor; si esta política debe nombrarlo es una
-> cuestión para el asesor legal.
+El sitio web y la demo los aloja Cloudflare, Inc. (Cloudflare Pages), que recibe esas solicitudes y conserva sus
+registros de acceso según sus propias condiciones y su política de privacidad.
 
 ## 13. Cambios en esta política
 
@@ -211,6 +204,7 @@ de la versión que lo introduzca, y se describirá en las notas de esa versión 
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| 6 | 2026-09-28 | Se nombra al editor (§0) y el contacto (§14); se indica cuánto tiempo se conserva la correspondencia y con qué base legal (§8); se nombra al proveedor de alojamiento del sitio web (§12). Nada cambia en lo que Sextant lee, guarda o envía. |
 | 5 | 2026-09-28 | Se añade el §15: la Política de Datos de Usuario de Chrome Web Store y sus requisitos de Uso Limitado, tal como se aplican a Sextant. Nada cambia en lo que Sextant lee, guarda o envía. |
 | 4 | 2026-09-22 | Se añade la importación del Setup Audit Trail: qué lee Sextant (§1) y qué guarda (§3) cuando decides importar a Actividad el propio historial de auditoría de tu org; y las opciones de retención del historial de Actividad (§3). |
 | 3 | 2026-09-16 | Se añade el §12: el sitio web y la demo interactiva —sin cookies, sin scripts ni analítica en el sitio; la demo no envía ni guarda nada— y la dirección pública de esta política. Las secciones 12 y 13 pasan a ser la 13 y la 14. |
@@ -219,8 +213,9 @@ de la versión que lo introduzca, y se describirá en las notas de esa versión 
 
 ## 14. Contacto
 
-<!-- DECISIÓN PENDIENTE: el mismo canal que SECURITY.md §1. -->
-`[ CONTACTO DE PRIVACIDAD — SIN CONFIGURAR ]`
+Escríbenos a [support@usesextant.dev](mailto:support@usesextant.dev) sobre esta política o sobre cualquier cosa
+que nos hayas enviado (§8, §9). Para informar de un problema de seguridad, escribe a
+[security@usesextant.dev](mailto:security@usesextant.dev) (`SECURITY.md` §1).
 
 ## 15. La Política de Datos de Usuario de Chrome Web Store
 

@@ -34,7 +34,7 @@ The first public release. Sextant answers one question from the Salesforce page 
 ## Privacy
 
 - **No backend, no account, no telemetry, no analytics, no third-party requests.** The only host Sextant contacts is your own Salesforce org, using your own session, making the requests Setup already makes. Everything Sextant keeps stays in this browser profile.
-- The privacy policy (version 5) covers the extension, the website and the interactive demo, in English and Spanish, and a generated `DATA_HANDLING.md` lists every item Sextant stores.
+- The privacy policy (version 6) covers the extension, the website and the interactive demo, in English and Spanish, and a generated `DATA_HANDLING.md` lists every item Sextant stores.
 
 ## Security
 
@@ -64,6 +64,12 @@ The first public release. Sextant answers one question from the Salesforce page 
 ## Install
 
 Not on the Chrome Web Store yet. The official install path is the store listing; nothing here is meant to be installed by hand.
+
+## Verify
+
+- Package `sextant-1.0.0.zip`: SHA-256 `b1988e3fa33378a3aac65874ce251bad096dcc0aa2fe46c5e45c268f9551a808`
+- Software bill of materials: SHA-256 `06cd4b4eb52dfbc6d1604609f42b768ebea9d306f292c2878eacd288fca6719c`
+- The hash of every file in the package, the SBOM and the record of how it was built are in `releases/1.0.0/` of this repository. A hash proves a file is the one the release checks examined — not that it is harmless, and not who made it.
 
 ## Read more
 

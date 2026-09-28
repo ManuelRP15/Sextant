@@ -1,0 +1,23 @@
+{
+  "againstBaseline": {
+    "permissions": {
+      "added": [],
+      "removed": []
+    },
+    "hostPermissions": {
+      "added": [],
+      "removed": []
+    },
+    "csp": "unchanged",
+    "urlOrigins": {
+      "added": [],
+      "removed": []
+    },
+    "bundledPackages": {
+      "added": [],
+      "removed": []
+    },
+    "unapprovedInstallScripts": []
+  },
+  "againstPreviousRelease": null
+}

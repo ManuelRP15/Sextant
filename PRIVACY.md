@@ -1,19 +1,7 @@
 # Privacy Policy — Sextant
 
-**Version 5 · Last updated: 2026-09-28** · [Versión en español](PRIVACY.es.md) (the English
+**Version 6 · Last updated: 2026-09-28** · [Versión en español](PRIVACY.es.md) (the English
 text governs)
-
-> **⚠️ NOT YET PUBLISHABLE — three open items, each checked by `npm run publication:check`:**
->
-> 1. **LEGAL REVIEW REQUIRED.** Written by the developer, verified against the code, and not reviewed by
->    a lawyer. Sections marked *legal review* in particular must be reviewed before publication.
-> 2. **DECISION REQUIRED — who publishes Sextant.** §0 names the publisher. Who that is depends on the
->    unresolved ownership question and must not be guessed.
-> 3. **DECISION REQUIRED — contact.** §14 needs a channel that is actually read (the same decision as
->    `SECURITY.md` §1).
->
-> The Chrome Web Store also requires this text at a public URL; the Trust Center publishes it once
-> these items are closed.
 
 ---
 
@@ -21,7 +9,7 @@ text governs)
 
 Sextant is a browser extension for Chrome and Edge that shows what Salesforce metadata a piece of text
 is, with its translations, and lets you edit those translations. It is published by
-`[ PUBLISHER — DECISION REQUIRED ]` ("the developer", "we").
+Manuel Roldán Pérez, an individual developer ("the developer", "we").
 
 Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc.
 Salesforce and Lightning are trademarks of Salesforce, Inc.
@@ -147,13 +135,11 @@ If you write to us — for support or to report a security problem — we receiv
 your email address and your message, and use it only to answer you and to fix the problem you reported.
 Please never send a Salesforce session id, password or real org data (see `SECURITY.md` §2).
 
-> **⚠️ LEGAL REVIEW REQUIRED** — how long correspondence is kept, and on what legal basis, depends on
-> the publisher and the channel chosen (§0, §14).
+We keep that correspondence only as long as it takes to answer you and resolve what you reported, and
+delete it within 12 months at most. The legal basis is our legitimate interest in answering you and in
+fixing Sextant (Article 6(1)(f) of the EU and UK GDPR).
 
 ## 9. Your choices and rights
-
-> **⚠️ LEGAL REVIEW REQUIRED** — this section describes rights under data-protection law (such as the
-> EU and UK GDPR) and must be reviewed before publication.
 
 - **See, export and delete** what Sextant keeps: Settings → Privacy & security. Deleting there removes
   Sextant's data from your browser and never changes anything in Salesforce.
@@ -192,9 +178,8 @@ Sextant's website (`https://usesextant.dev`) and the interactive demo it hosts (
 - Neither the website nor the demo connects to any Salesforce org, and nothing you do in the demo reaches
   the developer.
 
-> **⚠️ LEGAL REVIEW REQUIRED** — the hosting provider's data-processing terms and access-log retention
-> (`docs/HOSTING.md` §8) are the provider's; whether this policy must name the provider is a question for
-> counsel.
+The website and the demo are hosted by Cloudflare, Inc. (Cloudflare Pages), which receives those requests and
+keeps its access logs under its own terms and privacy policy.
 
 ## 13. Changes to this policy
 
@@ -203,6 +188,7 @@ Each version is dated and numbered. A change to what Sextant collects, stores or
 
 | Version | Date | Change |
 |---|---|---|
+| 6 | 2026-09-28 | Named the publisher (§0) and the contact (§14); stated how long correspondence is kept and on what legal basis (§8); named the website's hosting provider (§12). No change to what Sextant reads, keeps or sends. |
 | 5 | 2026-09-28 | Added §15: the Chrome Web Store User Data Policy and its Limited Use requirements, stated as they apply to Sextant. No change to what Sextant reads, keeps or sends. |
 | 4 | 2026-09-22 | Added the Setup Audit Trail import: what Sextant reads (§1) and keeps (§3) when you choose to import your org's own audit history into Activity; and the Activity history's retention choices (§3). |
 | 3 | 2026-09-16 | Added §12: the website and the interactive demo — no cookies, no script, no analytics on the site; the demo sends nothing and keeps nothing — and this policy's public address. Section numbers 12 and 13 became 13 and 14. |
@@ -211,8 +197,9 @@ Each version is dated and numbered. A change to what Sextant collects, stores or
 
 ## 14. Contact
 
-<!-- DECISION REQUIRED: the same channel as SECURITY.md §1. -->
-`[ PRIVACY CONTACT — NOT YET CONFIGURED ]`
+Write to [support@usesextant.dev](mailto:support@usesextant.dev) about this policy or about anything you have sent
+us (§8, §9). To report a security problem, write to [security@usesextant.dev](mailto:security@usesextant.dev)
+(`SECURITY.md` §1).
 
 ## 15. The Chrome Web Store User Data Policy
 

@@ -13,23 +13,9 @@ checked is in [`RELEASE_SECURITY.md`](RELEASE_SECURITY.md).
 
 ## 1. Reporting a vulnerability
 
-> **⚠️ DECISION REQUIRED BEFORE PUBLICATION — the reporting channel does not exist yet.**
->
-> It is left blank on purpose rather than filled with a guess. Choose one, make sure it is actually
-> read, replace the placeholder below, and delete this block:
->
-> - **GitHub private vulnerability reporting** (recommended; free; nothing to host) — enable it in the
->   public repository under *Settings → Code security → Private vulnerability reporting*, then the
->   line below becomes a link to *Report a vulnerability*.
-> - **A dedicated address**, such as `security@` on a domain you control, with a mailbox someone reads.
->
-> The same channel goes into `PRIVACY.md` §14, the Trust Center and `security.txt`.
-> `npm run publication:check` fails while this placeholder is present.
+Report a vulnerability privately, by email, to **[security@usesextant.dev](mailto:security@usesextant.dev)**.
 
 **Please do not report security issues in a public issue.**
-
-<!-- DECISION REQUIRED: the private reporting channel, per the block above. -->
-`[ SECURITY CONTACT — NOT YET CONFIGURED ]`
 
 What to include: the Sextant version (Settings → About, or `chrome://extensions`), the browser and
 its version, what an attacker needs (a malicious web page? another extension? access to the
@@ -50,10 +36,6 @@ You will be credited in the release notes if you want to be, and not named if yo
 
 ### Research that is welcome
 
-> **⚠️ LEGAL REVIEW REQUIRED** — the paragraph below is a statement of intent written by a
-> non-lawyer. It must be reviewed before publication and must not be read as a legal promise until
-> it has been.
-
 Good-faith security research that follows this page is welcome, and will be treated as such:
 
 - Test only against **your own** Salesforce orgs — a free Developer Edition org is ideal — and your
@@ -73,7 +55,7 @@ Good-faith security research that follows this page is welcome, and will be trea
 
 When unsure, report privately; a bug sent there is simply redirected.
 
-<!-- DECISION REQUIRED: the support channel for ordinary bugs (none exists yet; public issues once a repository is public). -->
+Everything else — a bug, a question, a request — goes to [support@usesextant.dev](mailto:support@usesextant.dev).
 
 ## 2. Never include real data in a report
 
