@@ -31,7 +31,7 @@ The first failure stops the release. Every gate's result is recorded in `release
 
 | # | Gate | What it proves | A real release |
 |---|---|---|---|
-| 1 | **Preflight** | Version agreement; no AI kernel in the environment | Refuses a dirty tree or a commit without the tag `v<version>` |
+| 1 | **Preflight** | Version agreement; no build flag for unreleased code in the environment | Refuses a dirty tree or a commit without the tag `v<version>` |
 | 2 | **Publication readiness** | No open legal, ownership or operational blocker (`npm run publication:check`) | Stops on any blocker; a rehearsal only records them |
 | 3 | **Clean checkout** | The build uses only what is committed | `git worktree` at the commit, then `npm ci` with install scripts limited to the reviewed list |
 | 4 | **Typecheck** | `tsc --noEmit` is clean | — |
@@ -39,7 +39,7 @@ The first failure stops the release. Every gate's result is recorded in `release
 | 6 | **Repository leak scan** | The would-be public tree contains no client or personal identifiers, credentials or internal references | Requires the private identity list |
 | 7 | **Build** | `SEXTANT_RELEASE=1 vite build`; the bundle inventory is recorded from the module graph | — |
 | 8 | **Reproducibility** | A second build of the same checkout is byte-identical, file by file | — |
-| 9 | **Artifact scan** | The built package matches the approved manifest, CSP and URL origins; contains no remote code, telemetry, AI provider code, credentials, client identifiers, source maps, local paths or developer affordances (`scripts/release/scan-dist.mjs`) | Requires the client-identity scan |
+| 9 | **Artifact scan** | The built package matches the approved manifest, CSP and URL origins; contains no remote code, telemetry, AI provider code or unreleased AI surface, credentials, client identifiers, source maps, local paths or developer affordances (`scripts/release/scan-dist.mjs`) | Requires the client-identity scan |
 | 10 | **Browser enforcement** | The built package, loaded into a real browser, cannot reach a non-Salesforce host or evaluate a string (`security-qa/csp-enforcement.pw.ts`) | Cannot be skipped |
 | 11 | **SBOM** | CycloneDX 1.5 of the third-party code actually in the bundle, each with its lockfile integrity | — |
 | 12 | **Package** | A deterministic zip (sorted entries, the commit's timestamp, independent of time zone) and the SHA-256 of it and of every file | — |
@@ -110,7 +110,8 @@ administrative detail.
    for a security-sensitive release that §4 was followed.
 2. Check `sextant-<version>.zip.sha256` against the file you are about to upload.
 3. Upload (or sign and upload the CRX, when verified uploads are on). Complete the privacy disclosures
-   from `CWS_PRIVACY_DISCLOSURES.md`; do not improvise them.
+   from `store-assets/PRIVACY_DISCLOSURES.md` and the listing from `store-assets/STORE_LISTING.md` (`#392`);
+   do not improvise them.
 4. After approval, install the published version in a clean profile and compare its files with
    `files.sha256`; confirm the permissions Chrome shows match `provenance.json`.
 5. Commit `release-metadata/releases/<version>/`.

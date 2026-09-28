@@ -17,7 +17,7 @@ contents are folded in here rather than listed as a version of their own.
 - **Translate All** annotates every translatable element on the page at once, filters to *Missing*, *Identical* or *Complete*, and steps through the issues with the page scrolling to each in turn.
 - **Search** goes from a translated string — the one quoted in the ticket — back to the component it belongs to, across the org's metadata rather than only its translatable slice.
 - **Workspace** captures every edit automatically, with before/after history, a `package.xml` export ready to deploy, and a portable export of the whole session. A component you kept is marked when it moves in the org after you captured it, naming the language that changed.
-- **Activity** shows what has happened in the org, built from evidence rather than inference, and notices a deployment landing — including one this browser did not start.
+- **Activity** shows what has happened in the org, built from evidence rather than inference, and notices a deployment landing — including one this browser did not start. You choose how long it remembers (7, 30 or 180 days, or until you delete it), and, when you ask, it imports Salesforce's own Setup Audit Trail into a separate panel: who changed what in Setup and when, in Salesforce's words, kept apart from what Sextant observed.
 - **Compare environments**: one component across several orgs as a table, with a consensus value and an exception set; two reads of the same org over time, always stating which two moments are compared.
 - **Create Custom Labels** with their translations in one grid, checked against the org as you type.
 - **Settings → Privacy & security.** See what Sextant keeps in your browser and how much space it uses, export it (never with your Salesforce session), delete it by scope, and read every permission Sextant asks for and why.
@@ -27,17 +27,21 @@ contents are folded in here rather than listed as a version of their own.
 - **The index says how old it is** and how much of the org it covered, rather than implying freshness it cannot vouch for. Large orgs are read incrementally and the read resumes across browser restarts.
 - **Saving straight to a production org always asks first.** *Don't ask me again* does not apply to a production org, or to an org Sextant has not identified yet.
 - **Automatic interface language.** A new install follows the browser's language when Sextant has it; choosing a language in Settings keeps that choice.
-- **Absence is distinguished from failure** throughout: "there is nothing here" and "we could not find out" are different sentences, never the same empty state.
+- **New metadata appears without a full read.** Coming back to Sextant or opening its toolbar menu asks Salesforce what changed since the last read and reads again only what changed — a field created a minute ago appears in Search once that one object has been read, not after the next full read of the org.
+- **Refresh makes the org current.** After it succeeds, every kind of metadata Sextant supports is current for that org — including deleted components, translations edited in Translation Workbench and standard picklist values, which no change record reports — or it names what it could not check. Its progress never goes backwards, and it can be stopped.
+- **Search filters by Picklist Value**, and a field's help text no longer takes the field's place in the results.
+- **Absence is distinguished from failure** throughout: "there is nothing here" and "we could not find out" are different sentences, never the same empty state. A translation Sextant has not read yet says *Not read yet* or *Checking…* until it has.
 
 ## Fixes
 - Activity no longer attributes a colleague's change to you because you had pinned the component.
 - The Workspace's search box matches the label you see on the row, not only its API name.
 - API names and object names no longer clip mid-word in rows that have room for them.
 - The Workspace's row summaries follow the interface language.
+- Search finds every value of a custom picklist — including values your profile cannot see, inactive values, and the values of the global value set a field uses — not only the ones Salesforce showed your own profile.
 
 ## Privacy
 - **No backend, no account, no telemetry, no analytics, no third-party requests.** The only host Sextant contacts is your own Salesforce org, using your own session, making the requests Setup already makes. Everything Sextant keeps stays in this browser profile.
-- The privacy policy (version 3) covers the extension, the website and the interactive demo, in English and Spanish, and a generated `DATA_HANDLING.md` lists every item Sextant stores.
+- The privacy policy (version 5) covers the extension, the website and the interactive demo, in English and Spanish, and a generated `DATA_HANDLING.md` lists every item Sextant stores.
 
 ## Security
 - **The browser enforces where Sextant can send requests.** A content security policy limits Sextant's pages and background process to Salesforce, and forbids scripts from anywhere else and string evaluation. It is verified in a real browser on every release build.
@@ -55,8 +59,7 @@ contents are folded in here rather than listed as a version of their own.
 - Translation Workbench enabled, with at least one language, for translation data to exist at all.
 
 ## Known issues
-- Editing covers 9 of 13 metadata types, two of them for custom (`__c`) members only. Object labels and related lists are deferred; standard buttons and tabs are Salesforce's own translations and stay read-only.
-- Hover surfaces objects, fields, picklist values and Custom Labels; the other types are read and indexed but kept out of the hover surface by design.
+- Editing covers Custom Labels, custom (`__c`) fields and their picklist values, global value sets, record types, custom buttons and links, quick actions, layout sections, custom tabs and apps. Object labels, related lists, field help text and text inside flows are read-only for now; standard buttons and the record page's standard tabs are Salesforce's own translations and stay read-only.
+- Text inside a Flow is not identified, on hover or in Search: Salesforce puts nothing on the page that ties it to its metadata, and Sextant does not guess. The flow itself is found in Search by its name.
 - A save through the Metadata API takes about a minute, almost all of it Salesforce's own deploy queue. Custom Labels use a faster path.
-- The hover inspector and Translate All are shown in English; the rest of Sextant follows the interface language.
 - Not validated against Professional Edition or orgs using API Access Control restrictions.

@@ -20,7 +20,6 @@ and are the text of the Chrome Web Store's permission justifications.
 | `alarms` | Chrome API | Resumes a long read of a large org after the browser pauses Sextant's background process. | None |
 | `https://*.lightning.force.com/*` | Host access | Salesforce Lightning pages — the only pages where Sextant shows what a label is and edits translations in place. | Read and change your data on the listed Salesforce sites |
 | `https://*.my.salesforce.com/*` | Host access | Your org's API address. Sextant calls Salesforce's own APIs there, as you, with the session you already have. | Read and change your data on the listed Salesforce sites |
-| `https://*.salesforce.com/*` | Host access | Salesforce addresses outside my.salesforce.com, such as older instance addresses. | Read and change your data on the listed Salesforce sites |
 
 ## Each permission
 
@@ -139,23 +138,6 @@ and are the text of the Chrome Web Store's permission justifications.
 - `src/background/index.ts`
 
 **Could it be narrower?** No — it is as narrow as the feature allows.
-
-### `https://*.salesforce.com/*`
-
-**Why:** Salesforce addresses outside my.salesforce.com, such as older instance addresses.
-
-**What it does not do:** It does not widen what Sextant sends or reads: every request still goes only to the API address of the org whose session it uses.
-
-**Without it:** An org still served from an older instance address could stop working. No such org has been confirmed.
-
-**Install warning it contributes to (paraphrased):** Read and change your data on the listed Salesforce sites
-
-**Used by:**
-
-- `src/shared/salesforce-origin.ts`
-- `manifest.config.ts`
-
-**Could it be narrower?** No confirmed use: Sextant builds my.salesforce.com API addresses. Narrow it (with the matching CSP entry) only after checking an org without enhanced domains (ROADMAP P46-PM4).
 
 ## What is deliberately absent
 

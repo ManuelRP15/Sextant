@@ -1,6 +1,6 @@
 # Privacy Policy — Sextant
 
-**Version 3 · Last updated: 2026-09-16** · [Versión en español](PRIVACY.es.md) (the English
+**Version 5 · Last updated: 2026-09-28** · [Versión en español](PRIVACY.es.md) (the English
 text governs)
 
 > **⚠️ NOT YET PUBLISHABLE — three open items, each checked by `npm run publication:check`:**
@@ -57,6 +57,10 @@ APIs, **as you** — so it can read only what your Salesforce user is allowed to
   which org you are working in.
 - **Recent deployment records** (their ids, status and dates, and the components they contained), so it
   can tell you when a deployment has landed.
+- **Your org's Setup Audit Trail, only if you import it** (Activity › ⋯ › *Import Salesforce history…*): for the
+  window you choose, who made each Setup change, when, the user they were logged in as if any, and Salesforce's own
+  description of it. Nothing is read from it until you ask, and Sextant first tells you how many entries the window
+  holds.
 
 Sextant does not read your business records — accounts, contacts, opportunities, cases and so on —
 through Salesforce's APIs. Because it runs inside Lightning pages, it can see what those pages display;
@@ -79,9 +83,10 @@ Sextant keeps its data in the browser's storage for this extension (`chrome.stor
 browser profile, on your computer. It is not synced to your Google account and not sent anywhere.
 
 It keeps: your settings; the orgs you have used; a cache of the metadata it has read; the history of
-changes it has observed in your orgs and the translation edits you made; translation snapshots for
-comparisons; the translation changes you queued or deployed; your Workspace; and developer diagnostics,
-only if you turn them on. Some of this includes names of Salesforce users in your orgs (for example, who
+changes it has observed in your orgs and the translation edits you made, for as long as you choose in Settings
+(7, 30 or 180 days, or until you delete it, within a size limit); the Salesforce audit history you chose to import,
+until you remove it; translation snapshots for comparisons; the translation changes you queued or deployed; your
+Workspace; and developer diagnostics, only if you turn them on. Some of this includes names of Salesforce users in your orgs (for example, who
 last modified a component).
 
 Every stored item, why it is kept and for how long is listed in [`DATA_HANDLING.md`](DATA_HANDLING.md)
@@ -122,10 +127,9 @@ APIs — the same change you could make in Setup.
 
 **Sextant contains no AI feature and sends nothing to any AI provider.**
 
-Sextant's source code contains unfinished groundwork for a possible AI capability. It is excluded from
-the extension you install, and the extension's security policy would block such a request in any case.
-If that ever changes, this policy will say — before the capability ships — exactly what would be sent,
-to whose service, and under whose key.
+The extension's security policy would block such a request in any case. If that ever changes, this
+policy will say — before the capability ships — exactly what would be sent, to whose service, and under
+whose key.
 
 ## 7. Files you create
 
@@ -199,6 +203,8 @@ Each version is dated and numbered. A change to what Sextant collects, stores or
 
 | Version | Date | Change |
 |---|---|---|
+| 5 | 2026-09-28 | Added §15: the Chrome Web Store User Data Policy and its Limited Use requirements, stated as they apply to Sextant. No change to what Sextant reads, keeps or sends. |
+| 4 | 2026-09-22 | Added the Setup Audit Trail import: what Sextant reads (§1) and keeps (§3) when you choose to import your org's own audit history into Activity; and the Activity history's retention choices (§3). |
 | 3 | 2026-09-16 | Added §12: the website and the interactive demo — no cookies, no script, no analytics on the site; the demo sends nothing and keeps nothing — and this policy's public address. Section numbers 12 and 13 became 13 and 14. |
 | 2 | 2026-09-15 | Corrected two statements that were not accurate: the browser's enforcement of Sextant's network boundary comes from its content security policy, not its host permissions; and translation changes do not appear in Salesforce's Setup Audit Trail. Added names of Salesforce users, deployment records, imports, the Chrome Web Store's statistics and your rights. |
 | 1 | 2026-09-01 | First version. |
@@ -207,3 +213,16 @@ Each version is dated and numbered. A change to what Sextant collects, stores or
 
 <!-- DECISION REQUIRED: the same channel as SECURITY.md §1. -->
 `[ PRIVACY CONTACT — NOT YET CONFIGURED ]`
+
+## 15. The Chrome Web Store User Data Policy
+
+Sextant's use of the information it handles adheres to the Chrome Web Store User Data Policy, including the Limited Use
+requirements. In practice:
+
+- **Its single purpose, and nothing else.** What Sextant reads is used only to show you what a piece of Salesforce
+  metadata is and what it says in each language, and to change translations when you ask (§1, §5).
+- **No transfer.** Nothing is transferred to anyone except your own Salesforce org, as part of that purpose (§4).
+- **No human reading.** None of it reaches the developer (§4), so no one there can read it. What you send us yourself is
+  covered by §8.
+- **No advertising, no brokers, no credit decisions.** It is never used, sold or transferred for advertising, to data
+  brokers or other resellers, or to decide anyone's creditworthiness or eligibility for a loan.

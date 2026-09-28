@@ -77,16 +77,17 @@ Evidence key: **E** enforced by the browser or platform · **T** automated test 
 
 ### T1 — The session is sent somewhere other than the user's org
 
-- **Mitigations.** CSP `connect-src 'self' https://*.salesforce.com` on every production build
+- **Mitigations.** CSP `connect-src 'self' https://*.my.salesforce.com` on every production build (narrowed from
+  `*.salesforce.com` with the host permission by `#392`)
   (`manifest.config.ts`) — **E**, verified in a real browser against the built extension, with a positive
   control (`security-qa/csp-enforcement.pw.ts`). One transport performs every request and validates the
   destination with a real URL parser, refusing userinfo, ports, lookalike suffixes and non-HTTPS
   (`src/shared/salesforce-transport.ts`, `salesforce-origin.ts`; `src/shared/salesforce-origin.test.ts`) — **T**.
   No other module calls a request primitive (`src/security/network-boundary.test.ts`) — **T**. The release
   scan fails on any unapproved URL origin in the bundle (`scripts/release/scan-dist.mjs`) — **B**.
-- **Residual.** The CSP allows any host under `salesforce.com`, not only the user's org — and that includes
-  hosts anyone can register (a free Developer Edition org) and Salesforce's own unauthenticated intake
-  hosts; the per-org rule is enforced by code and tests, not by the browser. The CSP governs *connections*
+- **Residual.** The CSP allows any host under `my.salesforce.com`, not only the user's org — and that includes
+  orgs anyone can register (a free Developer Edition org); the per-org rule is enforced by code and tests, not by
+  the browser. (`#392` took Salesforce's other hosts, including its unauthenticated intake hosts, out of the policy.) The CSP governs *connections*
   only: opening a tab, a DNS hint (`dns-prefetch`, `preconnect`) or a meta refresh could carry data
   out without a `fetch`. Nothing in the product uses those primitives outside `safe-navigation.ts`
   (`src/security/navigation-boundary.test.ts`) — **T** — and the release scan fails the package on any
@@ -303,9 +304,9 @@ written before attribution existed matched everybody. That is closed as follows.
 
 ### T16 — The unreleased AI code ships
 
-- **Mitigations.** Excluded at compile time (`__AI_KERNEL__`, `vite.config.ts`); the release scan fails on
-  provider code; a release refuses to build with the kernel; boot deletes development AI keys in store
-  builds — **B/T**.
+- **Mitigations.** Excluded at compile time (`__AI_KERNEL__`, `vite.config.ts`), with everything that only
+  serves it — its console, and the names of the storage it keeps; the release scan fails on provider code
+  and on any of those names; a release refuses to build with the kernel — **B/T**.
 
 ### T17 — Client or personal data reaches the public repository or a release
 

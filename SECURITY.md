@@ -121,7 +121,7 @@ Each statement is enforced by the browser, checked by tests or checked on every 
 [`DATA_HANDLING.md`](DATA_HANDLING.md) §1 says which, and where to verify it.
 
 - **One destination.** Sextant's requests go only to Salesforce. The extension's content security
-  policy (`connect-src 'self' https://*.salesforce.com`) makes the browser refuse any other
+  policy (`connect-src 'self' https://*.my.salesforce.com`) makes the browser refuse any other
   destination for its pages and service worker; one module performs every request and checks it is
   addressed to the org whose session it uses. The content script makes no requests.
 - **The session is used, not kept.** The `sid` cookie is read in the background when a request needs
@@ -141,14 +141,12 @@ Each statement is enforced by the browser, checked by tests or checked on every 
 - **Isolation from the page.** The tooltip mounts in a closed shadow root, and the content script runs
   only on `*.lightning.force.com`.
 
-### The AI code in the repository, which is not in the extension
+### No AI provider
 
-The source contains an unfinished AI subsystem, including an adapter for an AI provider's API. **It is
-not in the extension you install**: the production build excludes it at compile time, and the release
-scanner fails a build that contains that provider's endpoint. Even if the code were present, the content
-security policy would block the request, and no screen exists to configure it. If an AI capability is
-ever released, this page, the privacy policy and the store listing will say exactly what is sent, to
-whom and under whose key, in the same release — not after.
+Sextant has no AI feature and calls no AI provider. The release scanner fails a build that contains an AI
+provider's endpoint, and the content security policy would block such a request in any case. If an AI
+capability is ever released, this page, the privacy policy and the store listing will say exactly what is
+sent, to whom and under whose key, in the same release — not after.
 
 ## 5. What Sextant cannot protect against
 
