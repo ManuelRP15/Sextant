@@ -1,6 +1,6 @@
 # Privacy Policy — Sextant
 
-**Version 6 · Last updated: 2026-09-28** · [Versión en español](PRIVACY.es.md) (the English
+**Version 7 · Last updated: 2026-09-29** · [Versión en español](PRIVACY.es.md) (the English
 text governs)
 
 ---
@@ -169,12 +169,16 @@ can reach small, check it automatically, and say plainly where the limits are.
 
 Sextant's website (`https://usesextant.dev`) and the interactive demo it hosts (`/demo/`) are static pages.
 
-- **The website** sets no cookies, runs no script, has no analytics, and loads no font, style, script or
-  image from any other site. As with any website, the hosting provider receives each request — the page
-  requested, your IP address and your browser's identification — under its own terms.
+- **The website** sets no cookies, has no analytics, and loads no font, style, script or image from any other
+  site. The only script it runs is its own: it remembers the light or dark theme you choose, in your browser's
+  local storage and nowhere else, and it cannot send anything (the website's content security policy allows it no
+  request). As with any website, the hosting provider receives each request — the page requested, your IP address
+  and your browser's identification — under its own terms.
 - **The demo** runs Sextant's own code in your browser against a fictional Salesforce org. It sends nothing
   anywhere: its content security policy allows no request except for its own files, and it keeps nothing in
-  your browser's storage, so closing the tab discards everything you did in it.
+  your browser's storage but the theme you chose on the website (and, while it hands you back to the website, a
+  one-word note in that tab, which the website deletes as it opens), so closing the tab discards everything you
+  did in it.
 - Neither the website nor the demo connects to any Salesforce org, and nothing you do in the demo reaches
   the developer.
 
@@ -188,6 +192,7 @@ Each version is dated and numbered. A change to what Sextant collects, stores or
 
 | Version | Date | Change |
 |---|---|---|
+| 7 | 2026-09-29 | §12: the website now runs one script of its own, which remembers the light or dark theme you choose in your browser's local storage and cannot send anything; the demo reads the same choice. No change to what Sextant reads, keeps or sends. |
 | 6 | 2026-09-28 | Named the publisher (§0) and the contact (§14); stated how long correspondence is kept and on what legal basis (§8); named the website's hosting provider (§12). No change to what Sextant reads, keeps or sends. |
 | 5 | 2026-09-28 | Added §15: the Chrome Web Store User Data Policy and its Limited Use requirements, stated as they apply to Sextant. No change to what Sextant reads, keeps or sends. |
 | 4 | 2026-09-22 | Added the Setup Audit Trail import: what Sextant reads (§1) and keeps (§3) when you choose to import your org's own audit history into Activity; and the Activity history's retention choices (§3). |

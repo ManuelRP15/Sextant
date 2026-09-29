@@ -6,15 +6,15 @@
 
 **Sextant — Salesforce Metadata & Translations** identifies the Salesforce metadata behind the text on a Lightning page and shows its translations in every language the org has. Hover any text in Salesforce Lightning and Sextant tells you what it is — the field, picklist value, Custom Label or object behind it — with its API name and every translation, editable in place. Then it keeps track: what changed, who changed it when that is known, and whether it reached every org.
 
-<a href="https://usesextant.dev/demo/?scenario=hover"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sextant-hover-dark.png"><img src="assets/sextant-hover-light.png" width="1100" alt="A Salesforce record page. Sextant's tooltip names the text under the pointer — the Custom Label Verification_Step_Upload, &quot;Upload identity document&quot; — shows it in English, Spanish and French, and has its missing Dutch translation typed in place, ready to save."></picture></a>
+<a href="https://usesextant.dev/demo/?scenario=hover"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sextant-hover-dark.png"><img src="assets/sextant-hover-light.png" width="1100" alt="A Salesforce record page. Sextant's tooltip identifies the text under the pointer as the Custom Label Verification_Step_Upload (&quot;Upload identity document&quot;), shows it in English, Spanish and French, and has the missing Dutch translation typed in place, ready to save."></picture></a>
 
-<sub>Hold a key, point at any text on the page: Sextant says what it is, and you fix it there. The real product, photographed in the demo. Northstar Subscriptions does not exist.</sub>
+<sub>Hold a key and point at any text on the page. Sextant tells you what it is, and you can fix it right there. Screenshot of the real product in the demo. Northstar Subscriptions is a fictional org.</sub>
 
 There is no server, no account and no telemetry. Sextant works with the Salesforce session you already have and keeps what it keeps in your browser profile.
 
 **Try it without installing anything:** [the interactive demo](https://usesextant.dev/demo/) runs the real Sextant interface and background process in your browser, against Northstar, a fictional Salesforce org. Nothing is sent anywhere. [How the demo works](https://usesextant.dev/demo/how-it-works/).
 
-**Install:** not on the Chrome Web Store yet. When it is, the link will appear here, on the website and in the release notes — from one setting, so they cannot disagree. Nothing in this repository is meant to be installed by hand.
+**Install:** [Chrome Web Store](https://chromewebstore.google.com/detail/sextant-%E2%80%94-salesforce-meta/epmkijnbmfljbnhhofklnggkclljnebk)
 
 **Website:** https://usesextant.dev · [Product](https://usesextant.dev/features/) · [Guides](https://usesextant.dev/guides/) · [Trust Center](https://usesextant.dev/trust/) · [Changelog](https://usesextant.dev/changelog/)
 
@@ -77,4 +77,4 @@ Support: support@usesextant.dev. Bug reports and feature requests are welcome as
 
 ---
 
-Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc. Salesforce and Lightning are trademarks of Salesforce, Inc., used only to describe what Sextant works with. Made and published by Manuel Roldán Pérez. Version 1.0.0 (not on the Chrome Web Store yet).
+Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc. Salesforce and Lightning are trademarks of Salesforce, Inc., used only to describe what Sextant works with. Made and published by Manuel Roldán Pérez. Version 1.0.0.

@@ -1,6 +1,6 @@
 # Política de privacidad — Sextant
 
-**Versión 6 · Última actualización: 2026-09-28** · [English version](PRIVACY.md)
+**Versión 7 · Última actualización: 2026-09-29** · [English version](PRIVACY.md)
 
 > **Traducción.** Esta es una traducción de la política en inglés, que es la que prevalece en caso de
 > discrepancia. Ambas se actualizan a la vez.
@@ -184,13 +184,16 @@ límites.
 
 El sitio web de Sextant (`https://usesextant.dev`) y la demo interactiva que aloja (`/demo/`) son páginas estáticas.
 
-- **El sitio web** no crea cookies, no ejecuta ningún script, no tiene analítica y no carga fuentes, estilos,
-  scripts ni imágenes de ningún otro sitio. Como en cualquier sitio web, el proveedor de alojamiento recibe cada
+- **El sitio web** no crea cookies, no tiene analítica y no carga fuentes, estilos, scripts ni imágenes de ningún
+  otro sitio. El único script que ejecuta es suyo: recuerda el tema claro u oscuro que elijas, en el almacenamiento
+  local de tu navegador y en ningún otro sitio, y no puede enviar nada (la política de seguridad de contenidos del
+  sitio no le permite ninguna solicitud). Como en cualquier sitio web, el proveedor de alojamiento recibe cada
   solicitud —la página solicitada, tu dirección IP y la identificación de tu navegador— bajo sus propias condiciones.
 - **La demo** ejecuta el propio código de Sextant en tu navegador contra una org de Salesforce ficticia. No envía
   nada a ningún sitio: su política de seguridad de contenidos no permite ninguna solicitud salvo la de sus propios
-  archivos, y no guarda nada en el almacenamiento de tu navegador, así que al cerrar la pestaña se descarta todo
-  lo que hiciste en ella.
+  archivos, y no guarda nada en el almacenamiento de tu navegador salvo el tema que elegiste en el sitio web (y,
+  mientras te devuelve al sitio, una nota de una palabra en esa pestaña que el sitio borra al abrirse), así que al
+  cerrar la pestaña se descarta todo lo que hiciste en ella.
 - Ni el sitio web ni la demo se conectan a ninguna org de Salesforce, y nada de lo que haces en la demo llega al
   desarrollador.
 
@@ -204,6 +207,7 @@ de la versión que lo introduzca, y se describirá en las notas de esa versión 
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| 7 | 2026-09-29 | §12: el sitio web ejecuta ahora un script propio, que recuerda el tema claro u oscuro que elijas en el almacenamiento local de tu navegador y no puede enviar nada; la demo lee la misma elección. Nada cambia en lo que Sextant lee, guarda o envía. |
 | 6 | 2026-09-28 | Se nombra al editor (§0) y el contacto (§14); se indica cuánto tiempo se conserva la correspondencia y con qué base legal (§8); se nombra al proveedor de alojamiento del sitio web (§12). Nada cambia en lo que Sextant lee, guarda o envía. |
 | 5 | 2026-09-28 | Se añade el §15: la Política de Datos de Usuario de Chrome Web Store y sus requisitos de Uso Limitado, tal como se aplican a Sextant. Nada cambia en lo que Sextant lee, guarda o envía. |
 | 4 | 2026-09-22 | Se añade la importación del Setup Audit Trail: qué lee Sextant (§1) y qué guarda (§3) cuando decides importar a Actividad el propio historial de auditoría de tu org; y las opciones de retención del historial de Actividad (§3). |

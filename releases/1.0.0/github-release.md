@@ -63,7 +63,7 @@ The first public release. Sextant answers one question from the Salesforce page 
 
 ## Install
 
-Not on the Chrome Web Store yet. The official install path is the store listing; nothing here is meant to be installed by hand.
+[Chrome Web Store](https://chromewebstore.google.com/detail/sextant-%E2%80%94-salesforce-meta/epmkijnbmfljbnhhofklnggkclljnebk)
 
 ## Verify
 
