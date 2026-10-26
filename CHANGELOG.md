@@ -12,13 +12,86 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); ver
 
 ---
 
+## [1.1.0] — 2026-10-25
+
+Sextant stays out of Salesforce's way when you are not using it, the interface is available in Japanese, and comparing translations across orgs shows what is missing from an org.
+
+### Added
+
+- **Lighter on Salesforce when you are not using Sextant.** An open Salesforce tab now makes Sextant read only what hovering on that page needs: the page's own metadata and your Custom Labels. The rest of an org (the full catalog that Search uses, translation checks, change checks) is read while you use Search, the Workspace or Activity on that org, and for a quarter of an hour after. Sextant also no longer copies what it saves into every open Salesforce tab, no longer checks the page's address twice a second, and does nothing in tabs you are not looking at until you switch to them. Measured on a heavy test page with three Salesforce tabs left idle for two minutes, the processor time of Sextant's background work fell from about half a second to a few hundredths, the browser's own work returned to what it is without Sextant, and nothing was written to storage.
+- **The interface in Japanese.** Choose Japanese in Settings → Interface language. It uses Salesforce's own Japanese names for Custom Labels, Translation Workbench, picklist values and the rest, so what Sextant says matches what a Japanese Setup shows. The Japanese translation has not yet been reviewed by a native speaker, and Sextant says so where you choose it; Automatic still means English.
+- **Comparing translations across orgs shows what is not in an org.** A component that exists in one org and not in another (a field in development that never reached UAT) is now shown as *not in this org*, in the table, in the sentence that explains each row and in the export. The comparison can also be downloaded as a CSV file that opens correctly in Excel, in every language.
+
+### Changed
+
+- *Keep reading orgs in the background* (Settings → On the Salesforce page) brings back the previous behaviour for anyone who wants Search complete before opening it, at the cost of more requests while Salesforce is open.
+- Language names, the page language and Japanese text are set correctly for Japanese, so kanji use Japanese glyph forms.
+- The organisation picker in the comparison now shows which orgs can be compared (those read whole), and when.
+
+### Fixed
+
+- **Typing Japanese, Chinese or Korean no longer saves or closes things by accident.** Pressing Enter to confirm a conversion saved a translation half-typed; Escape under a conversion cancelled the editor or closed the panel around it; confirming a search with Enter opened a result. Keys an input method is still composing with now belong to it, in every editor, search box and panel.
+- **Thirteen Spanish texts showed `{etiqueta}`** instead of the component's name (*Añadir {etiqueta} a tu Workspace*). They show the name.
+- In the comparison: a lost answer now says nothing was compared and offers Try again (it used to show *Comparing…* as an error); a table cell containing `|` or a line break no longer breaks the Markdown export; an org's *missing* count matches what its filter shows.
+- Activity's footnote no longer ends a Japanese sentence with an English full stop.
+
+### Privacy
+
+- Nothing new is collected or sent anywhere. Sextant still keeps what it reads on this device only, in the browser's extension storage.
+- Salesforce tabs now learn only the names of the settings and stores that changed and read what they show, instead of receiving every value Sextant saves.
+
+### Security
+
+- One new internal message lets the on-page Search tell Sextant that you are using it on that page's org. Like every message from a Salesforce page, it is accepted only for the page's own org.
+
+### Permissions
+
+- No new permission.
+
+### Compatibility
+
+- Same browsers as 1.0.1. On Chrome or Edge versions older than 102, Sextant falls back to checking the page's address periodically, as before.
+
+### Known issues
+
+- The Japanese interface has not been reviewed by a native speaker. Dates still follow your computer's settings, a few messages that come from Salesforce or from Sextant's background work are still in English, and lists are joined with commas.
+- With the default setting, Search on an org you have not used Sextant on yet starts complete only once you open it: the first opening shows what is already read and fills in as the org is read.
+- Editing covers Custom Labels, custom (`__c`) fields and their picklist values, global value sets, record types, custom buttons and links, quick actions, layout sections, custom tabs and apps. Object labels, related lists, field help text and text inside flows are read-only for now; standard buttons and the record page's standard tabs are Salesforce's own translations and stay read-only.
+- Text inside a Flow is not identified, on hover or in Search: Salesforce puts nothing on the page that ties it to its metadata, and Sextant does not guess.
+- A save through the Metadata API takes about a minute, almost all of it Salesforce's own deploy queue. Custom Labels use a faster path.
+- Not validated against Professional Edition or orgs using API Access Control restrictions.
+
+---
+
+## [1.0.1] — 2026-09-29
+
+Every key you type reaches Sextant on a Salesforce page, Refresh recovers after a lost connection and waits for slower orgs, Search answers however soon you start typing, and paste is paste again in New Custom Labels.
+
+### Fixed
+
+- **Every key reaches Sextant's text fields on a Salesforce page.** Salesforce's own single-key shortcuts — `e` to edit the record, `/` to search, and others in console apps — were taking letters typed into the hover editor, Translate All and Search, most visibly `e`. What you type into Sextant now stays in Sextant; Salesforce's shortcuts keep working everywhere else on the page.
+- **Search no longer gets stuck while the org's index loads.** Typing before the index had finished loading left Search on *Reading this org's index…*, without answers, until it was closed. It now answers what you typed as soon as the index is read, over a Salesforce page and in the toolbar menu alike.
+- **Refresh works on the first press after the connection to Salesforce comes back.** The first Refresh after a lost connection could finish with most of its checks skipped and had to be pressed again. It now checks the connection first: if Salesforce answers, the Refresh runs in full; if it still does not, the Refresh stops at once and says so.
+- **Translation Workbench edits are checked on slower orgs.** Refresh waited only about 30 seconds for Salesforce to hand over the files that show an edit made in Translation Workbench. On an org that takes longer, every Refresh ended *Translation Workbench edits couldn't be checked*, and such an edit was never picked up. Refresh now waits as long as Salesforce is working on them.
+- **A Refresh that loses the connection says it couldn't refresh.** It used to finish as a partial check that named whichever part came first; now it says *Couldn't refresh* and keeps showing the last read. A Refresh that finds nothing changed is still *Up to date*.
+- **Paste is paste again in New Custom Labels.** Ctrl+V (Cmd+V on a Mac) in the grid could be taken for a spreadsheet import: a value with a `|` was split into columns, one cell copied from Excel replaced the rows below, and two lines of text were refused as not being a spreadsheet. Pasting into a cell now always pastes the text. To bring in rows from Excel or Google Sheets, use *Paste from spreadsheet*: the rows are added after the ones already in the grid.
+
+### Known issues
+
+- Editing covers Custom Labels, custom (`__c`) fields and their picklist values, global value sets, record types, custom buttons and links, quick actions, layout sections, custom tabs and apps. Object labels, related lists, field help text and text inside flows are read-only for now; standard buttons and the record page's standard tabs are Salesforce's own translations and stay read-only.
+- Text inside a Flow is not identified, on hover or in Search: Salesforce puts nothing on the page that ties it to its metadata, and Sextant does not guess. The flow itself is found in Search by its name.
+- A save through the Metadata API takes about a minute, almost all of it Salesforce's own deploy queue. Custom Labels use a faster path.
+- Not validated against Professional Edition or orgs using API Access Control restrictions.
+
+---
+
 ## [1.0.0] — 2026-09-28
 
 The first public release. Sextant answers one question from the Salesforce page itself — what is this text, and what does it say in every other language? — and keeps track of what changed.
 
 ### Added
 
-- **Hold-to-inspect hover.** Point at any label, field, button or picklist value in Lightning and see what metadata it is, its API name, and every language the org has configured. One answer or none: where a string cannot be identified with confidence, Sextant says *Unknown origin* instead of offering a list of guesses.
+- **Hold-to-inspect hover.** Point at any label, field, button or picklist value in Lightning and see what metadata it is, its API name, and its translations in the languages you choose. One answer or none: where a string cannot be identified with confidence, Sextant shows nothing instead of offering a list of guesses.
 - **Edit in place** for Custom Labels, custom (`__c`) fields and custom picklist values, with every save re-reading the org's current value first so a colleague's more recent edit is never silently overwritten. When Salesforce refuses a write, you see the org's own message.
 - **Translate All** annotates every translatable element on the page at once, filters to *Missing*, *Identical* or *Complete*, and steps through the issues with the page scrolling to each in turn.
 - **Search** goes from a translated string — the one quoted in the ticket — back to the component it belongs to, across the org's metadata rather than only its translatable slice.

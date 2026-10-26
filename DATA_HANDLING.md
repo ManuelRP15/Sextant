@@ -231,6 +231,7 @@ What Sextant has read from each org so it can answer without asking again: compo
 | Key | Holds | Source | Names of people | Org content | Shown to | In an export |
 |---|---|---|---|---|---|---|
 | `orgIndexWrites::…` | Reader-owned index revisions and scoped absence barriers; Salesforce principal id, component API names and locale keys, no translation values. | Read from Salesforce | Yes | Yes | Only the Salesforce user it was read for | Yes |
+| `orgIndexCells::…` | The index revision of each component and locale, for the reader that owns the index; component API names and locale keys, no translation values. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
 | `orgFreshness::…` | Which parts of the org each read covered, per language — object API names, when, from which Salesforce source, and a print of each translation file; Salesforce principal id; no translation values. | Read from Salesforce | Yes | Yes | Only the Salesforce user it was read for | Yes |
 | `orgIndexPart::…` | The org's translation index: every translatable component's API name, type, id and values per language. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |
 | `orgIndex::…` | The org's translation index: every translatable component's API name, type, id and values per language. | Read from Salesforce | No | Yes | Only the Salesforce user it was read for | Yes |

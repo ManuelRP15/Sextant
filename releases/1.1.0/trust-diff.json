@@ -1,0 +1,51 @@
+{
+  "againstBaseline": {
+    "permissions": {
+      "added": [],
+      "removed": []
+    },
+    "hostPermissions": {
+      "added": [],
+      "removed": []
+    },
+    "csp": "unchanged",
+    "urlOrigins": {
+      "added": [],
+      "removed": []
+    },
+    "bundledPackages": {
+      "added": [],
+      "removed": []
+    },
+    "unapprovedInstallScripts": []
+  },
+  "againstPreviousRelease": {
+    "previous": "1.0.1",
+    "permissions": {
+      "added": [],
+      "removed": []
+    },
+    "hostPermissions": {
+      "added": [],
+      "removed": []
+    },
+    "csp": "unchanged",
+    "urlOrigins": {
+      "added": [],
+      "removed": []
+    },
+    "bundledPackages": {
+      "added": [],
+      "removed": []
+    },
+    "boundaryFilesChanged": [
+      "manifest.config.ts",
+      "vite.config.ts",
+      "src/shared/message-guard.ts",
+      "src/shared/trust-facts.ts",
+      "PRIVACY_POLICY.md",
+      "scripts/release/release.mjs",
+      "scripts/release/leak-patterns.mjs"
+    ]
+  }
+}

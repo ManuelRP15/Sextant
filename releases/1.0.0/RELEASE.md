@@ -12,7 +12,7 @@ contents are folded in here rather than listed as a version of their own.
 -->
 
 ## Highlights
-- **Hold-to-inspect hover.** Point at any label, field, button or picklist value in Lightning and see what metadata it is, its API name, and every language the org has configured. One answer or none: where a string cannot be identified with confidence, Sextant says *Unknown origin* instead of offering a list of guesses.
+- **Hold-to-inspect hover.** Point at any label, field, button or picklist value in Lightning and see what metadata it is, its API name, and its translations in the languages you choose. One answer or none: where a string cannot be identified with confidence, Sextant shows nothing instead of offering a list of guesses.
 - **Edit in place** for Custom Labels, custom (`__c`) fields and custom picklist values, with every save re-reading the org's current value first so a colleague's more recent edit is never silently overwritten. When Salesforce refuses a write, you see the org's own message.
 - **Translate All** annotates every translatable element on the page at once, filters to *Missing*, *Identical* or *Complete*, and steps through the issues with the page scrolling to each in turn.
 - **Search** goes from a translated string — the one quoted in the ticket — back to the component it belongs to, across the org's metadata rather than only its translatable slice.

@@ -1,0 +1,43 @@
+{
+  "againstBaseline": {
+    "permissions": {
+      "added": [],
+      "removed": []
+    },
+    "hostPermissions": {
+      "added": [],
+      "removed": []
+    },
+    "csp": "unchanged",
+    "urlOrigins": {
+      "added": [],
+      "removed": []
+    },
+    "bundledPackages": {
+      "added": [],
+      "removed": []
+    },
+    "unapprovedInstallScripts": []
+  },
+  "againstPreviousRelease": {
+    "previous": "1.0.0",
+    "permissions": {
+      "added": [],
+      "removed": []
+    },
+    "hostPermissions": {
+      "added": [],
+      "removed": []
+    },
+    "csp": "unchanged",
+    "urlOrigins": {
+      "added": [],
+      "removed": []
+    },
+    "bundledPackages": {
+      "added": [],
+      "removed": []
+    },
+    "boundaryFilesChanged": []
+  }
+}

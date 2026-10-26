@@ -20,7 +20,7 @@ There is no server, no account and no telemetry. Sextant works with the Salesfor
 
 ## What it does
 
-- **Inspect** — hold a key and hover any label, field, button or picklist value: what it is, its API name, every language your org has configured, and whether a translation is missing or identical to the source. One answer, or an honest *Unknown origin* — never a ranked list of guesses.
+- **Inspect** — hold a key and hover any label, field, button or picklist value: what it is, its API name, every language you chose in Settings, and whether a translation is missing or identical to the source. One answer, or an honest silence — never a ranked list of guesses.
 - **Edit where you found it** — Custom Labels, custom (`__c`) fields and custom picklist values, plus record types, custom buttons and links, quick actions, layout sections, custom tabs and apps, with every save re-reading the org's current value first. Standard fields and standard picklist values are deliberately read-only.
 - **Translate All** — annotate every translatable element on the page at once, filter to what is missing, and step through the issues.
 - **Search** — from a translated string back to the component it belongs to, across the org's metadata.
@@ -69,6 +69,8 @@ Sextant sends requests only to Salesforce, and the browser blocks its pages from
 
 Every published version has a directory under [releases/](releases/) with the notes people read, the SHA-256 of every file in the package, a software bill of materials, the permission and network diff against the previous version, and the record of how it was built. [RELEASE_SECURITY.md](RELEASE_SECURITY.md) explains what a hash proves and what it does not.
 
+- **1.1.0** — 2026-10-25 — [what changed](releases/1.1.0/RELEASE.md) · [evidence](releases/1.1.0/)
+- **1.0.1** — 2026-09-29 — [what changed](releases/1.0.1/RELEASE.md) · [evidence](releases/1.0.1/)
 - **1.0.0** — 2026-09-28 — [what changed](releases/1.0.0/RELEASE.md) · [evidence](releases/1.0.0/)
 
 ## Support and feedback
@@ -77,4 +79,4 @@ Support: support@usesextant.dev. Bug reports and feature requests are welcome as
 
 ---
 
-Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc. Salesforce and Lightning are trademarks of Salesforce, Inc., used only to describe what Sextant works with. Made and published by Manuel Roldán Pérez. Version 1.0.0.
+Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc. Salesforce and Lightning are trademarks of Salesforce, Inc., used only to describe what Sextant works with. Made and published by Manuel Roldán Pérez. Version 1.1.0.
