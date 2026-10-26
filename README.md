@@ -69,6 +69,7 @@ Sextant sends requests only to Salesforce, and the browser blocks its pages from
 
 Every published version has a directory under [releases/](releases/) with the notes people read, the SHA-256 of every file in the package, a software bill of materials, the permission and network diff against the previous version, and the record of how it was built. [RELEASE_SECURITY.md](RELEASE_SECURITY.md) explains what a hash proves and what it does not.
 
+- **1.1.1** — 2026-10-26 — [what changed](releases/1.1.1/RELEASE.md) · [evidence](releases/1.1.1/)
 - **1.1.0** — 2026-10-25 — [what changed](releases/1.1.0/RELEASE.md) · [evidence](releases/1.1.0/)
 - **1.0.1** — 2026-09-29 — [what changed](releases/1.0.1/RELEASE.md) · [evidence](releases/1.0.1/)
 - **1.0.0** — 2026-09-28 — [what changed](releases/1.0.0/RELEASE.md) · [evidence](releases/1.0.0/)
@@ -79,4 +80,4 @@ Support: support@usesextant.dev. Bug reports and feature requests are welcome as
 
 ---
 
-Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc. Salesforce and Lightning are trademarks of Salesforce, Inc., used only to describe what Sextant works with. Made and published by Manuel Roldán Pérez. Version 1.1.0.
+Sextant is an independent product. It is not made, endorsed or supported by Salesforce, Inc. Salesforce and Lightning are trademarks of Salesforce, Inc., used only to describe what Sextant works with. Made and published by Manuel Roldán Pérez. Version 1.1.1.

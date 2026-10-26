@@ -1,0 +1,181 @@
+{
+  "schema": "sextant.release-provenance",
+  "version": 1,
+  "release": {
+    "version": "1.1.1",
+    "mode": "release",
+    "classification": "security-sensitive",
+    "classificationReasons": [
+      "previous release 1.1.0: security-boundary files changed: src/shared/data-inventory.ts, DATA_HANDLING.md"
+    ],
+    "trustChangeApproval": "#431: the index write sidecar's per-entry cells moved to a new local store orgIndexCells::<org>, classified reader-visible, never transmitted (data-inventory.ts + regenerated DATA_HANDLING.md); no permission, network origin or dependency change"
+  },
+  "source": {
+    "commit": "b155e15c7c8becb97fc1545c93e0299e9ee1873b",
+    "tag": "v1.1.1",
+    "dirty": false,
+    "commitTime": "2026-10-26T09:00:22.000Z"
+  },
+  "build": {
+    "builtAt": "2026-10-26T09:07:25.351Z",
+    "node": "v24.18.0",
+    "npm": "11.16.0",
+    "platform": "win32-x64",
+    "lockfileSha256": "54a86cf42b76e1177f04f9474b0b522a69488a4ae0fad9921d0a41d5e6acf5d2",
+    "viteVersion": "5.4.21",
+    "reproducibility": {
+      "measured": "two consecutive release builds of the same checkout, on the same machine and toolchain",
+      "files": 34,
+      "differingFiles": [],
+      "notMeasured": "reproducibility on another machine, operating system, Node or npm version"
+    }
+  },
+  "artifact": {
+    "file": "sextant-1.1.1.zip",
+    "sha256": "15a58d93c2c355b3189b3bba3bd7fea935b56c141e9963a29540d064a8492b8b",
+    "files": 34,
+    "filesSha256": "f20b0252337b22de4773470376a132b33dd632972eaa193610ee4daf249ce1bd"
+  },
+  "manifest": {
+    "name": "Sextant — Salesforce Metadata & Translations",
+    "version": "1.1.1",
+    "permissions": [
+      "storage",
+      "unlimitedStorage",
+      "activeTab",
+      "cookies",
+      "alarms"
+    ],
+    "hostPermissions": [
+      "https://*.lightning.force.com/*",
+      "https://*.my.salesforce.com/*"
+    ],
+    "csp": "default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; frame-src 'none'; connect-src 'self' https://*.my.salesforce.com; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; media-src 'none'; worker-src 'self'; manifest-src 'self'",
+    "contentScriptMatches": [
+      "https://*.lightning.force.com/*"
+    ]
+  },
+  "network": {
+    "urlOrigins": [
+      "http://schemas.xmlsoap.org",
+      "http://soap.sforce.com",
+      "http://www.w3.org",
+      "https://placeholder.lightning.force.com",
+      "https://reactjs.org",
+      "https://usesextant.dev"
+    ]
+  },
+  "dependencies": {
+    "bundled": [
+      "@nodable/entities@3.0.0",
+      "anynum@1.0.1",
+      "fast-xml-builder@1.3.0",
+      "fast-xml-parser@5.10.1",
+      "fflate@0.8.3",
+      "is-unsafe@2.0.0",
+      "path-expression-matcher@1.6.2",
+      "react@18.3.1",
+      "react-dom@18.3.1",
+      "scheduler@0.23.2",
+      "strnum@2.4.1",
+      "xml-naming@0.3.0"
+    ],
+    "installScriptsInLockfile": [
+      "esbuild@0.21.5",
+      "fsevents@2.3.2",
+      "fsevents@2.3.3"
+    ]
+  },
+  "boundaryFiles": {
+    "manifest.config.ts": "2853b96f7aa81cc6ee929ac45a6de98e42fcc4d28f3b508add492ae1919e1db6",
+    "vite.config.ts": "3f136885efbc0d71ca1d4e81aeb67dac216617f92d191b233fc8ac63e8f95056",
+    "src/shared/salesforce-transport.ts": "3d7623c081839102619f29526b30822b7459e36c3d1bdb60d6b5620123966f73",
+    "src/shared/salesforce-origin.ts": "33feed9707ed0222259f614d5ab6439187a7aa94670c018c2df14bbc9fb018c0",
+    "src/shared/message-guard.ts": "dc8b27d3669c993c087360a1d69600159be2e65c723293925daff573cf0f7ce2",
+    "src/shared/secret-redaction.ts": "7272a4d957b375163c6352cc164b2831f760ecf85a4b3431905c9ba78f42171b",
+    "src/shared/safe-navigation.ts": "e9c268d2b510a72b29af8b73298452e76ee8c3bca5355aba4b20b3b995fb3bcc",
+    "src/shared/import-safety.ts": "9b877f5b8491f382715b21b5eb6edb7403222eeeaf4827f04689bf991e0c857d",
+    "src/shared/data-inventory.ts": "d6e995bef2833380cbd0d0a6a7b404c0438a156813645f4e9748ec5e439f0aa1",
+    "src/shared/trust-facts.ts": "f4778f1f4d6ca3b6fc25b69abb4f1ea07ca1120d1aa8937850ee7d9850c01848",
+    "src/shared/permission-explanations.ts": "7b20dc55bc616f37a8ca1696058ce015e8b7976f690a4c6ab51fa13eb8562102",
+    "DATA_HANDLING.md": "4ce506c201a62de2d411b0fac406d36307bad1c4183f5dfb6a0aaac95d7ffa59",
+    "PRIVACY_POLICY.md": "d5844bf15f3f85f03345149d18c8479bd29a13edc9c01a73eaaeffaeb708f750",
+    "SECURITY.md": "b387a3840194068b1fcda57a80f6c90f31245ed12de113bd863e4316db87e2ef",
+    ".npmrc": "4a9196ad71c6d6fac8ccc82338056fed9ee2480fc75fc87daa16b1069864eae8",
+    "release-metadata/trust-baseline.json": "695480f6c422d5b334e4db10ff16e8c9acdbd25b61d1ce9120bc6630b80961e7",
+    "scripts/release/release.mjs": "5f7b38b59326a4a4ca547abc3a119b1dd6434cb6b25ab579886e45943a74436e",
+    "scripts/release/scan-dist.mjs": "6b862d819649d1610bb756d8f8ec5d57bdb1acaf4e01acda953e54d90c8cad97",
+    "scripts/release/leak-patterns.mjs": "f30a5b931fbe0419c899c848a02fe8c95baf889c47fed44ff1d9e004d075f81c",
+    "scripts/release/deterministic-zip.mjs": "52a55765f2459b1a42c3eda2c3435a75381506dc6f4222421ed4c798bdb5746f",
+    "scripts/release/bundle-inventory-plugin.ts": "490cae6808c7ea849be4ce89d1c391a6a291f7f0e0a25a6ddf49aeb7809817d7",
+    "playwright.security.config.ts": "5f6a18d2ae100679532d778bc691b78a74a240980e58a37f3cb84824477e78c4",
+    "security-qa/csp-enforcement.pw.ts": "3c0b7a8000c444da441a673c15182433d67a01579212f93c2ba6fabdaac1a005"
+  },
+  "sbom": {
+    "file": "sbom.cdx.json",
+    "sha256": "645f197c2bb9d92d5d6799dd09036c0c311d7cbf3623313654f464f13e529b75"
+  },
+  "whatAHashProves": "That a file is byte-for-byte the artifact these gates checked. It does not prove the artifact is benign — only that it is this one.",
+  "gates": [
+    {
+      "name": "preflight",
+      "status": "passed"
+    },
+    {
+      "name": "publication readiness",
+      "status": "passed"
+    },
+    {
+      "name": "clean checkout",
+      "status": "passed"
+    },
+    {
+      "name": "typecheck",
+      "status": "passed"
+    },
+    {
+      "name": "tests",
+      "status": "passed"
+    },
+    {
+      "name": "repository leak scan",
+      "status": "passed"
+    },
+    {
+      "name": "build",
+      "status": "passed"
+    },
+    {
+      "name": "reproducibility",
+      "status": "passed"
+    },
+    {
+      "name": "artifact scan",
+      "status": "passed"
+    },
+    {
+      "name": "browser enforcement",
+      "status": "passed"
+    },
+    {
+      "name": "sbom",
+      "status": "passed"
+    },
+    {
+      "name": "package",
+      "status": "passed"
+    },
+    {
+      "name": "trust diff",
+      "status": "passed"
+    },
+    {
+      "name": "changelog",
+      "status": "passed"
+    },
+    {
+      "name": "release notes",
+      "status": "passed"
+    }
+  ]
+}
